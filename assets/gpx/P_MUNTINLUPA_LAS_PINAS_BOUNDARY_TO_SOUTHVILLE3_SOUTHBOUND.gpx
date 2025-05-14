@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creator="GraphHopper" version="1.1" xmlns:gh="https://graphhopper.com/public/schema/gpx/1.1">
+<metadata><copyright author="OpenStreetMap contributors"/><link href="http://graphhopper.com"><text>GraphHopper GPX</text></link><time>2025-04-13T17:51:33.003Z</time></metadata>
+<wpt lat="14.426776" lon="121.022359"></wpt>
+<wpt lat="14.41778" lon="121.019401"></wpt>
+<wpt lat="14.414034" lon="121.016396"></wpt>
+<wpt lat="14.38945" lon="121.009579"></wpt>
+<wpt lat="14.375446" lon="121.012613"></wpt>
+<rte>
+<rtept lat="14.426776" lon="121.022359"><desc>Continue onto Investment Drive</desc><extensions><gh:distance>1093.385</gh:distance><gh:time>109719</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.417780" lon="121.019401"><desc>Waypoint 1</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.417780" lon="121.019401"><desc>Continue onto Daang Hari</desc><extensions><gh:distance>500.57</gh:distance><gh:time>42907</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.414145" lon="121.016778"><desc>Turn right onto Ridge Avenue</desc><extensions><gh:distance>7.408</gh:distance><gh:time>1667</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.414187" lon="121.016724"><desc>Turn left</desc><extensions><gh:distance>40.085</gh:distance><gh:time>14431</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.414034" lon="121.016396"><desc>Waypoint 2</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.414034" lon="121.016396"><desc>Continue</desc><extensions><gh:distance>2937.037</gh:distance><gh:time>233130</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.389450" lon="121.009579"><desc>Waypoint 3</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.389450" lon="121.009579"><desc>Continue onto Daang Hari</desc><extensions><gh:distance>1665.75</gh:distance><gh:time>145259</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.375472" lon="121.012621"><desc>Keep left onto Villar Gyratory and drive toward MCX, Makati, NAIA, Manila, Vista Land University Town, San Pedro</desc><extensions><gh:distance>3.007</gh:distance><gh:time>387</gh:time><gh:sign>-7</gh:sign></extensions></rtept>
+<rtept lat="14.375446" lon="121.012613"><desc>Arrive at destination</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>4</gh:sign></extensions></rtept>
+</rte>
+<trk>
+<name>GraphHopper Track</name><desc></desc>
+<trkseg><trkpt lat="14.426776" lon="121.022359"><ele>43.2</ele></trkpt>
+<trkpt lat="14.425100" lon="121.022478"><ele>50.0</ele></trkpt>
+<trkpt lat="14.424276" lon="121.022541"><ele>46.8</ele></trkpt>
+<trkpt lat="14.424121" lon="121.022534"><ele>46.2</ele></trkpt>
+<trkpt lat="14.423857" lon="121.022497"><ele>45.1</ele></trkpt>
+<trkpt lat="14.423436" lon="121.022421"><ele>44.7</ele></trkpt>
+<trkpt lat="14.423317" lon="121.022398"><ele>44.7</ele></trkpt>
+<trkpt lat="14.423245" lon="121.022396"><ele>44.6</ele></trkpt>
+<trkpt lat="14.422720" lon="121.022434"><ele>44.0</ele></trkpt>
+<trkpt lat="14.422622" lon="121.022418"><ele>43.9</ele></trkpt>
+<trkpt lat="14.422538" lon="121.022386"><ele>43.8</ele></trkpt>
+<trkpt lat="14.421592" lon="121.021802"><ele>43.1</ele></trkpt>
+<trkpt lat="14.417780" lon="121.019401"><ele>45.8</ele></trkpt>
+<trkpt lat="14.416571" lon="121.018625"><ele>43.9</ele></trkpt>
+<trkpt lat="14.415956" lon="121.018241"><ele>44.2</ele></trkpt>
+<trkpt lat="14.415105" lon="121.017728"><ele>46.5</ele></trkpt>
+<trkpt lat="14.414578" lon="121.017399"><ele>46.2</ele></trkpt>
+<trkpt lat="14.414457" lon="121.017309"><ele>46.1</ele></trkpt>
+<trkpt lat="14.414319" lon="121.017158"><ele>46.0</ele></trkpt>
+<trkpt lat="14.414235" lon="121.016997"><ele>45.9</ele></trkpt>
+<trkpt lat="14.414145" lon="121.016778"><ele>45.8</ele></trkpt>
+<trkpt lat="14.414187" lon="121.016724"><ele>45.7</ele></trkpt>
+<trkpt lat="14.414147" lon="121.016558"><ele>45.7</ele></trkpt>
+<trkpt lat="14.414046" lon="121.016404"><ele>45.8</ele></trkpt>
+<trkpt lat="14.414034" lon="121.016396"><ele>45.8</ele></trkpt>
+<trkpt lat="14.413974" lon="121.016354"><ele>45.8</ele></trkpt>
+<trkpt lat="14.413835" lon="121.016328"><ele>45.8</ele></trkpt>
+<trkpt lat="14.413342" lon="121.016004"><ele>45.9</ele></trkpt>
+<trkpt lat="14.412656" lon="121.015572"><ele>48.3</ele></trkpt>
+<trkpt lat="14.410272" lon="121.014041"><ele>50.2</ele></trkpt>
+<trkpt lat="14.408278" lon="121.012794"><ele>51.6</ele></trkpt>
+<trkpt lat="14.407820" lon="121.012497"><ele>52.0</ele></trkpt>
+<trkpt lat="14.407486" lon="121.012287"><ele>51.9</ele></trkpt>
+<trkpt lat="14.407130" lon="121.012056"><ele>51.9</ele></trkpt>
+<trkpt lat="14.406882" lon="121.011908"><ele>51.9</ele></trkpt>
+<trkpt lat="14.406676" lon="121.011822"><ele>51.8</ele></trkpt>
+<trkpt lat="14.406543" lon="121.011783"><ele>51.9</ele></trkpt>
+<trkpt lat="14.406247" lon="121.011729"><ele>52.1</ele></trkpt>
+<trkpt lat="14.406019" lon="121.011723"><ele>52.3</ele></trkpt>
+<trkpt lat="14.405880" lon="121.011732"><ele>52.3</ele></trkpt>
+<trkpt lat="14.405751" lon="121.011757"><ele>52.4</ele></trkpt>
+<trkpt lat="14.405598" lon="121.011816"><ele>52.5</ele></trkpt>
+<trkpt lat="14.405468" lon="121.011915"><ele>52.6</ele></trkpt>
+<trkpt lat="14.405167" lon="121.012195"><ele>52.6</ele></trkpt>
+<trkpt lat="14.405105" lon="121.012229"><ele>52.6</ele></trkpt>
+<trkpt lat="14.405051" lon="121.012247"><ele>52.6</ele></trkpt>
+<trkpt lat="14.404904" lon="121.012265"><ele>52.5</ele></trkpt>
+<trkpt lat="14.403254" lon="121.012057"><ele>52.8</ele></trkpt>
+<trkpt lat="14.402897" lon="121.012023"><ele>52.7</ele></trkpt>
+<trkpt lat="14.401118" lon="121.011817"><ele>54.3</ele></trkpt>
+<trkpt lat="14.399080" lon="121.011621"><ele>56.2</ele></trkpt>
+<trkpt lat="14.398869" lon="121.011584"><ele>56.3</ele></trkpt>
+<trkpt lat="14.398620" lon="121.011512"><ele>56.4</ele></trkpt>
+<trkpt lat="14.395009" lon="121.010340"><ele>59.3</ele></trkpt>
+<trkpt lat="14.393573" lon="121.009884"><ele>59.3</ele></trkpt>
+<trkpt lat="14.392580" lon="121.009551"><ele>56.9</ele></trkpt>
+<trkpt lat="14.391923" lon="121.009324"><ele>55.3</ele></trkpt>
+<trkpt lat="14.391782" lon="121.009265"><ele>55.0</ele></trkpt>
+<trkpt lat="14.391653" lon="121.009244"><ele>54.7</ele></trkpt>
+<trkpt lat="14.391547" lon="121.009241"><ele>54.4</ele></trkpt>
+<trkpt lat="14.391366" lon="121.009258"><ele>53.9</ele></trkpt>
+<trkpt lat="14.390197" lon="121.009458"><ele>50.8</ele></trkpt>
+<trkpt lat="14.389450" lon="121.009579"><ele>54.5</ele></trkpt>
+<trkpt lat="14.385397" lon="121.010237"><ele>59.2</ele></trkpt>
+<trkpt lat="14.385205" lon="121.010261"><ele>60.2</ele></trkpt>
+<trkpt lat="14.384918" lon="121.010310"><ele>61.7</ele></trkpt>
+<trkpt lat="14.384792" lon="121.010348"><ele>61.2</ele></trkpt>
+<trkpt lat="14.384662" lon="121.010407"><ele>60.7</ele></trkpt>
+<trkpt lat="14.382600" lon="121.011821"><ele>62.9</ele></trkpt>
+<trkpt lat="14.380581" lon="121.013193"><ele>61.0</ele></trkpt>
+<trkpt lat="14.380300" lon="121.013338"><ele>60.8</ele></trkpt>
+<trkpt lat="14.380153" lon="121.013381"><ele>60.8</ele></trkpt>
+<trkpt lat="14.380009" lon="121.013411"><ele>60.7</ele></trkpt>
+<trkpt lat="14.379845" lon="121.013412"><ele>60.6</ele></trkpt>
+<trkpt lat="14.379694" lon="121.013406"><ele>60.9</ele></trkpt>
+<trkpt lat="14.379390" lon="121.013368"><ele>61.5</ele></trkpt>
+<trkpt lat="14.377578" lon="121.013065"><ele>64.6</ele></trkpt>
+<trkpt lat="14.377013" lon="121.012956"><ele>65.4</ele></trkpt>
+<trkpt lat="14.375967" lon="121.012787"><ele>66.9</ele></trkpt>
+<trkpt lat="14.375737" lon="121.012723"><ele>66.6</ele></trkpt>
+<trkpt lat="14.375599" lon="121.012676"><ele>66.4</ele></trkpt>
+<trkpt lat="14.375472" lon="121.012621"><ele>66.2</ele></trkpt>
+<trkpt lat="14.375446" lon="121.012613"><ele>66.0</ele></trkpt>
+</trkseg></trk>
+</gpx>

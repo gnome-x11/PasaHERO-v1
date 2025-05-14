@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creator="GraphHopper" version="1.1" xmlns:gh="https://graphhopper.com/public/schema/gpx/1.1">
+<metadata><copyright author="OpenStreetMap contributors"/><link href="http://graphhopper.com"><text>GraphHopper GPX</text></link><time>2025-04-14T01:36:58.230Z</time></metadata>
+<rte>
+<rtept lat="14.427811" lon="121.022665"><desc>Continue onto Alabang-Zapote Road</desc><extensions><gh:distance>594.683</gh:distance><gh:time>35680</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.426139" lon="121.027901"><desc>Waypoint 1</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.426139" lon="121.027901"><desc>Continue onto Alabang-Zapote Road</desc><extensions><gh:distance>253.493</gh:distance><gh:time>15211</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.425218" lon="121.030052"><desc>Turn right</desc><extensions><gh:distance>8.087</gh:distance><gh:time>2911</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.425154" lon="121.030015"><desc>Turn left</desc><extensions><gh:distance>46.277</gh:distance><gh:time>16660</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.424966" lon="121.030398"><desc>Keep left</desc><extensions><gh:distance>40.018</gh:distance><gh:time>14407</gh:time><gh:sign>-7</gh:sign></extensions></rtept>
+<rtept lat="14.424785" lon="121.030720"><desc>Waypoint 2</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.424785" lon="121.030720"><desc>Continue</desc><extensions><gh:distance>117.233</gh:distance><gh:time>42204</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.424327" lon="121.031696"><desc>Turn left</desc><extensions><gh:distance>11.037</gh:distance><gh:time>1419</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.424426" lon="121.031709"><desc>Turn sharp right onto Alabang-Zapote Road</desc><extensions><gh:distance>47.773</gh:distance><gh:time>2867</gh:time><gh:sign>3</gh:sign></extensions></rtept>
+<rtept lat="14.424270" lon="121.032121"><desc>Waypoint 3</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.424270" lon="121.032121"><desc>Continue onto Alabang-Zapote Road</desc><extensions><gh:distance>481.646</gh:distance><gh:time>59844</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.422908" lon="121.036364"><desc>Waypoint 4</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.422908" lon="121.036364"><desc>Continue onto Alabang-Zapote Road</desc><extensions><gh:distance>614.206</gh:distance><gh:time>93059</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.422444" lon="121.042002"><desc>Keep right onto Corporate Avenue</desc><extensions><gh:distance>12.257</gh:distance><gh:time>2006</gh:time><gh:sign>7</gh:sign></extensions></rtept>
+<rtept lat="14.422396" lon="121.042104"><desc>Keep left onto Corporate Avenue</desc><extensions><gh:distance>132.747</gh:distance><gh:time>17067</gh:time><gh:sign>-7</gh:sign></extensions></rtept>
+<rtept lat="14.421370" lon="121.042334"><desc>Turn left</desc><extensions><gh:distance>94.331</gh:distance><gh:time>33959</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.421364" lon="121.043209"><desc>Turn right</desc><extensions><gh:distance>133.125</gh:distance><gh:time>47925</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.420464" lon="121.043917"><desc>Turn right</desc><extensions><gh:distance>21.646</gh:distance><gh:time>7793</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.420286" lon="121.043887"><desc>Keep left</desc><extensions><gh:distance>30.361</gh:distance><gh:time>10930</gh:time><gh:sign>-7</gh:sign></extensions></rtept>
+<rtept lat="14.420061" lon="121.043748"><desc>Waypoint 5</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.420061" lon="121.043748"><desc>Continue</desc><extensions><gh:distance>68.577</gh:distance><gh:time>24688</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.419692" lon="121.043250"><desc>Turn left onto Alabang-Zapote Road</desc><extensions><gh:distance>119.583</gh:distance><gh:time>12619</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.418954" lon="121.044056"><desc>Arrive at destination</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>4</gh:sign></extensions></rtept>
+</rte>
+<trk>
+<name>GraphHopper Track</name><desc></desc>
+<trkseg><trkpt lat="14.427811" lon="121.022665"><ele>44.1</ele></trkpt>
+<trkpt lat="14.427598" lon="121.023463"><ele>46.0</ele></trkpt>
+<trkpt lat="14.427020" lon="121.025322"><ele>50.6</ele></trkpt>
+<trkpt lat="14.426780" lon="121.026128"><ele>49.4</ele></trkpt>
+<trkpt lat="14.426330" lon="121.027412"><ele>39.8</ele></trkpt>
+<trkpt lat="14.426139" lon="121.027901"><ele>38.5</ele></trkpt>
+<trkpt lat="14.426069" lon="121.028074"><ele>38.1</ele></trkpt>
+<trkpt lat="14.426008" lon="121.028260"><ele>37.6</ele></trkpt>
+<trkpt lat="14.425591" lon="121.029257"><ele>37.0</ele></trkpt>
+<trkpt lat="14.425218" lon="121.030052"><ele>33.3</ele></trkpt>
+<trkpt lat="14.425154" lon="121.030015"><ele>33.6</ele></trkpt>
+<trkpt lat="14.424966" lon="121.030398"><ele>32.1</ele></trkpt>
+<trkpt lat="14.424785" lon="121.030720"><ele>31.3</ele></trkpt>
+<trkpt lat="14.424622" lon="121.031028"><ele>29.2</ele></trkpt>
+<trkpt lat="14.424361" lon="121.031588"><ele>25.4</ele></trkpt>
+<trkpt lat="14.424327" lon="121.031696"><ele>24.7</ele></trkpt>
+<trkpt lat="14.424426" lon="121.031709"><ele>25.0</ele></trkpt>
+<trkpt lat="14.424404" lon="121.031751"><ele>24.7</ele></trkpt>
+<trkpt lat="14.424270" lon="121.032121"><ele>24.2</ele></trkpt>
+<trkpt lat="14.424207" lon="121.032296"><ele>23.7</ele></trkpt>
+<trkpt lat="14.424019" lon="121.032889"><ele>22.7</ele></trkpt>
+<trkpt lat="14.423950" lon="121.033117"><ele>23.4</ele></trkpt>
+<trkpt lat="14.423734" lon="121.033737"><ele>24.1</ele></trkpt>
+<trkpt lat="14.423709" lon="121.033888"><ele>24.1</ele></trkpt>
+<trkpt lat="14.423444" lon="121.034679"><ele>24.4</ele></trkpt>
+<trkpt lat="14.422908" lon="121.036364"><ele>20.9</ele></trkpt>
+<trkpt lat="14.422854" lon="121.036531"><ele>20.7</ele></trkpt>
+<trkpt lat="14.422807" lon="121.036749"><ele>20.6</ele></trkpt>
+<trkpt lat="14.422742" lon="121.036826"><ele>20.6</ele></trkpt>
+<trkpt lat="14.422689" lon="121.037081"><ele>20.8</ele></trkpt>
+<trkpt lat="14.422625" lon="121.037428"><ele>20.8</ele></trkpt>
+<trkpt lat="14.422480" lon="121.038396"><ele>21.3</ele></trkpt>
+<trkpt lat="14.422431" lon="121.039008"><ele>21.6</ele></trkpt>
+<trkpt lat="14.422424" lon="121.039353"><ele>20.9</ele></trkpt>
+<trkpt lat="14.422421" lon="121.039482"><ele>20.7</ele></trkpt>
+<trkpt lat="14.422413" lon="121.039819"><ele>20.4</ele></trkpt>
+<trkpt lat="14.422416" lon="121.040850"><ele>19.8</ele></trkpt>
+<trkpt lat="14.422444" lon="121.042002"><ele>19.2</ele></trkpt>
+<trkpt lat="14.422396" lon="121.042104"><ele>19.0</ele></trkpt>
+<trkpt lat="14.422392" lon="121.042224"><ele>18.6</ele></trkpt>
+<trkpt lat="14.422359" lon="121.042294"><ele>18.3</ele></trkpt>
+<trkpt lat="14.422297" lon="121.042338"><ele>18.1</ele></trkpt>
+<trkpt lat="14.421370" lon="121.042334"><ele>17.7</ele></trkpt>
+<trkpt lat="14.421364" lon="121.043209"><ele>14.8</ele></trkpt>
+<trkpt lat="14.421107" lon="121.043212"><ele>14.7</ele></trkpt>
+<trkpt lat="14.421063" lon="121.043241"><ele>14.7</ele></trkpt>
+<trkpt lat="14.420517" lon="121.043846"><ele>14.3</ele></trkpt>
+<trkpt lat="14.420464" lon="121.043917"><ele>14.3</ele></trkpt>
+<trkpt lat="14.420343" lon="121.043933"><ele>14.5</ele></trkpt>
+<trkpt lat="14.420286" lon="121.043887"><ele>14.5</ele></trkpt>
+<trkpt lat="14.420202" lon="121.043878"><ele>14.6</ele></trkpt>
+<trkpt lat="14.420061" lon="121.043748"><ele>14.7</ele></trkpt>
+<trkpt lat="14.419915" lon="121.043614"><ele>14.8</ele></trkpt>
+<trkpt lat="14.419874" lon="121.043548"><ele>14.9</ele></trkpt>
+<trkpt lat="14.419790" lon="121.043359"><ele>15.0</ele></trkpt>
+<trkpt lat="14.419692" lon="121.043250"><ele>14.9</ele></trkpt>
+<trkpt lat="14.419579" lon="121.043376"><ele>14.3</ele></trkpt>
+<trkpt lat="14.419461" lon="121.043515"><ele>13.9</ele></trkpt>
+<trkpt lat="14.419273" lon="121.043726"><ele>13.9</ele></trkpt>
+<trkpt lat="14.418954" lon="121.044056"><ele>14.2</ele></trkpt>
+</trkseg></trk>
+</gpx>

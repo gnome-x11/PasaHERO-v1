@@ -1,0 +1,2 @@
+/Users/dexter/Documents/transit/android/app/.cxx/RelWithDebInfo/4f4z143g/x86/CMakeFiles/edit_cache.dir
+/Users/dexter/Documents/transit/android/app/.cxx/RelWithDebInfo/4f4z143g/x86/CMakeFiles/rebuild_cache.dir

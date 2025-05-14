@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creator="GraphHopper" version="1.1" xmlns:gh="https://graphhopper.com/public/schema/gpx/1.1">
+<metadata><copyright author="OpenStreetMap contributors"/><link href="http://graphhopper.com"><text>GraphHopper GPX</text></link><time>2025-05-04T04:09:29.246Z</time></metadata>
+<wpt lat="14.420244" lon="121.04376"></wpt>
+<wpt lat="14.421686" lon="121.039714"></wpt>
+<wpt lat="14.423174" lon="121.039492"></wpt>
+<wpt lat="14.425827" lon="121.039699"></wpt>
+<wpt lat="14.422776" lon="121.042319"></wpt>
+<wpt lat="14.42272" lon="121.042939"></wpt>
+<wpt lat="14.424621" lon="121.045296"></wpt>
+<wpt lat="14.426362" lon="121.045275"></wpt>
+<wpt lat="14.429055" lon="121.045262"></wpt>
+<wpt lat="14.430133" lon="121.045231"></wpt>
+<wpt lat="14.431695" lon="121.045248"></wpt>
+<wpt lat="14.432424" lon="121.045241"></wpt>
+<wpt lat="14.434088" lon="121.045232"></wpt>
+<wpt lat="14.437855" lon="121.045122"></wpt>
+<wpt lat="14.43851" lon="121.045123"></wpt>
+<wpt lat="14.440355" lon="121.04514"></wpt>
+<wpt lat="14.44189" lon="121.045165"></wpt>
+<wpt lat="14.44459" lon="121.045125"></wpt>
+<wpt lat="14.445599" lon="121.045141"></wpt>
+<wpt lat="14.447859" lon="121.044964"></wpt>
+<wpt lat="14.449677" lon="121.045125"></wpt>
+<wpt lat="14.450684" lon="121.045119"></wpt>
+<wpt lat="14.452104" lon="121.045075"></wpt>
+<wpt lat="14.453391" lon="121.044718"></wpt>
+<wpt lat="14.45466" lon="121.044796"></wpt>
+<wpt lat="14.456104" lon="121.045105"></wpt>
+<wpt lat="14.4569" lon="121.045127"></wpt>
+<rte>
+<rtept lat="14.420244" lon="121.043760"><desc>Continue</desc><extensions><gh:distance>66.795</gh:distance><gh:time>24046</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.419790" lon="121.043359"><desc>Turn right onto Alabang-Zapote Road</desc><extensions><gh:distance>455.423</gh:distance><gh:time>62795</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.421686" lon="121.039714"><desc>Waypoint 1</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.421686" lon="121.039714"><desc>Continue onto Alabang-Zapote Road</desc><extensions><gh:distance>20.757</gh:distance><gh:time>2874</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.421669" lon="121.039522"><desc>Turn right onto Bridgeway Avenue</desc><extensions><gh:distance>167.612</gh:distance><gh:time>32432</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.423174" lon="121.039492"><desc>Waypoint 2</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.423174" lon="121.039492"><desc>Continue onto North Bridgeway Avenue</desc><extensions><gh:distance>294.981</gh:distance><gh:time>88495</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.425826" lon="121.039501"><desc>Turn right onto Northgate Avenue</desc><extensions><gh:distance>21.37</gh:distance><gh:time>6411</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.425827" lon="121.039699"><desc>Waypoint 3</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.425827" lon="121.039699"><desc>Continue onto Northgate Avenue</desc><extensions><gh:distance>98.189</gh:distance><gh:time>29457</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.425830" lon="121.040611"><desc>Turn right onto Indo-China Drive</desc><extensions><gh:distance>109.177</gh:distance><gh:time>32754</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.424848" lon="121.040609"><desc>Turn left onto Orient Lane</desc><extensions><gh:distance>53.833</gh:distance><gh:time>16150</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.424816" lon="121.041103"><desc>Turn right</desc><extensions><gh:distance>225.223</gh:distance><gh:time>67567</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.422790" lon="121.041118"><desc>Turn left</desc><extensions><gh:distance>129.874</gh:distance><gh:time>33396</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.422776" lon="121.042319"><desc>Waypoint 4</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.422776" lon="121.042319"><desc>Continue</desc><extensions><gh:distance>19.292</gh:distance><gh:time>4961</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.422717" lon="121.042488"><desc>Turn slight left onto West Service Road</desc><extensions><gh:distance>48.591</gh:distance><gh:time>4859</gh:time><gh:sign>-1</gh:sign></extensions></rtept>
+<rtept lat="14.422720" lon="121.042939"><desc>Waypoint 5</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.422720" lon="121.042939"><desc>Continue onto West Service Road</desc><extensions><gh:distance>440.136</gh:distance><gh:time>44015</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.424621" lon="121.045296"><desc>Waypoint 6</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.424621" lon="121.045296"><desc>Continue onto West Service Road</desc><extensions><gh:distance>193.749</gh:distance><gh:time>19375</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.426363" lon="121.045288"><desc>Turn left onto Crisostomo Ibarra</desc><extensions><gh:distance>1.408</gh:distance><gh:time>317</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.426362" lon="121.045275"><desc>Waypoint 7</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.426362" lon="121.045275"><desc>Make a U-turn onto Crisostomo Ibarra</desc><extensions><gh:distance>1.408</gh:distance><gh:time>317</gh:time><gh:sign>-98</gh:sign></extensions></rtept>
+<rtept lat="14.426363" lon="121.045288"><desc>Turn left onto West Service Road</desc><extensions><gh:distance>299.446</gh:distance><gh:time>29945</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.429055" lon="121.045262"><desc>Waypoint 8</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.429055" lon="121.045262"><desc>Continue onto West Service Road</desc><extensions><gh:distance>119.794</gh:distance><gh:time>11979</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.430132" lon="121.045260"><desc>Turn left onto Main Drive</desc><extensions><gh:distance>3.196</gh:distance><gh:time>719</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.430133" lon="121.045231"><desc>Waypoint 9</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.430133" lon="121.045231"><desc>Make a U-turn onto Main Drive</desc><extensions><gh:distance>3.196</gh:distance><gh:time>719</gh:time><gh:sign>-98</gh:sign></extensions></rtept>
+<rtept lat="14.430132" lon="121.045260"><desc>Turn left onto West Service Road</desc><extensions><gh:distance>173.775</gh:distance><gh:time>17377</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.431695" lon="121.045248"><desc>Waypoint 10</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.431695" lon="121.045248"><desc>Continue onto West Service Road</desc><extensions><gh:distance>81.083</gh:distance><gh:time>8108</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.432424" lon="121.045241"><desc>Waypoint 11</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.432424" lon="121.045241"><desc>Continue onto West Service Road</desc><extensions><gh:distance>185.077</gh:distance><gh:time>18508</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.434088" lon="121.045232"><desc>Waypoint 12</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.434088" lon="121.045232"><desc>Continue onto West Service Road</desc><extensions><gh:distance>419.193</gh:distance><gh:time>41918</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.437855" lon="121.045122"><desc>Waypoint 13</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.437855" lon="121.045122"><desc>Continue onto West Service Road</desc><extensions><gh:distance>72.861</gh:distance><gh:time>7286</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.438510" lon="121.045123"><desc>Waypoint 14</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.438510" lon="121.045123"><desc>Continue onto West Service Road</desc><extensions><gh:distance>205.31</gh:distance><gh:time>20530</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.440355" lon="121.045140"><desc>Waypoint 15</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.440355" lon="121.045140"><desc>Continue onto West Service Road</desc><extensions><gh:distance>170.702</gh:distance><gh:time>17071</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.441890" lon="121.045165"><desc>Waypoint 16</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.441890" lon="121.045165"><desc>Continue onto West Service Road</desc><extensions><gh:distance>300.781</gh:distance><gh:time>30078</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.444590" lon="121.045125"><desc>Waypoint 17</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.444590" lon="121.045125"><desc>Continue onto West Service Road</desc><extensions><gh:distance>112.273</gh:distance><gh:time>11227</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.445599" lon="121.045141"><desc>Waypoint 18</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.445599" lon="121.045141"><desc>Continue onto West Service Road</desc><extensions><gh:distance>212.099</gh:distance><gh:time>21210</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.447507" lon="121.045133"><desc>Turn left</desc><extensions><gh:distance>17.965</gh:distance><gh:time>8084</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.447506" lon="121.044967"><desc>Turn right</desc><extensions><gh:distance>39.337</gh:distance><gh:time>14161</gh:time><gh:sign>2</gh:sign></extensions></rtept>
+<rtept lat="14.447859" lon="121.044964"><desc>Waypoint 19</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.447859" lon="121.044964"><desc>Continue</desc><extensions><gh:distance>62.929</gh:distance><gh:time>22654</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.448292" lon="121.045131"><desc>Turn left onto West Service Road</desc><extensions><gh:distance>154.025</gh:distance><gh:time>15403</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.449677" lon="121.045125"><desc>Waypoint 20</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.449677" lon="121.045125"><desc>Continue onto West Service Road</desc><extensions><gh:distance>112.022</gh:distance><gh:time>11202</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.450684" lon="121.045119"><desc>Waypoint 21</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.450684" lon="121.045119"><desc>Continue onto West Service Road</desc><extensions><gh:distance>158.473</gh:distance><gh:time>15848</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.452104" lon="121.045075"><desc>Waypoint 22</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.452104" lon="121.045075"><desc>Continue onto West Service Road</desc><extensions><gh:distance>148.769</gh:distance><gh:time>14876</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.453391" lon="121.044718"><desc>Waypoint 23</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.453391" lon="121.044718"><desc>Continue onto West Service Road</desc><extensions><gh:distance>145.27</gh:distance><gh:time>14527</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.454660" lon="121.044796"><desc>Waypoint 24</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.454660" lon="121.044796"><desc>Continue onto West Service Road</desc><extensions><gh:distance>166.846</gh:distance><gh:time>16684</gh:time><gh:sign>0</gh:sign></extensions></rtept>
+<rtept lat="14.456107" lon="121.045130"><desc>Turn left</desc><extensions><gh:distance>2.667</gh:distance><gh:time>960</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.456104" lon="121.045105"><desc>Waypoint 25</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>5</gh:sign></extensions></rtept>
+<rtept lat="14.456104" lon="121.045105"><desc>Make a U-turn</desc><extensions><gh:distance>2.667</gh:distance><gh:time>960</gh:time><gh:sign>-98</gh:sign></extensions></rtept>
+<rtept lat="14.456107" lon="121.045130"><desc>Turn left onto West Service Road</desc><extensions><gh:distance>88.291</gh:distance><gh:time>8829</gh:time><gh:sign>-2</gh:sign></extensions></rtept>
+<rtept lat="14.456900" lon="121.045127"><desc>Arrive at destination</desc><extensions><gh:distance>0</gh:distance><gh:time>0</gh:time><gh:sign>4</gh:sign></extensions></rtept>
+</rte>
+<trk>
+<name>GraphHopper Track</name><desc></desc>
+<trkseg><trkpt lat="14.420244" lon="121.043760"><ele>14.7</ele></trkpt>
+<trkpt lat="14.419993" lon="121.043511"><ele>14.9</ele></trkpt>
+<trkpt lat="14.419889" lon="121.043417"><ele>15.0</ele></trkpt>
+<trkpt lat="14.419790" lon="121.043359"><ele>15.0</ele></trkpt>
+<trkpt lat="14.420330" lon="121.042688"><ele>17.0</ele></trkpt>
+<trkpt lat="14.420554" lon="121.042386"><ele>18.6</ele></trkpt>
+<trkpt lat="14.420601" lon="121.042328"><ele>18.9</ele></trkpt>
+<trkpt lat="14.420828" lon="121.042018"><ele>20.6</ele></trkpt>
+<trkpt lat="14.421132" lon="121.041524"><ele>20.0</ele></trkpt>
+<trkpt lat="14.421214" lon="121.041376"><ele>19.6</ele></trkpt>
+<trkpt lat="14.421441" lon="121.040919"><ele>20.1</ele></trkpt>
+<trkpt lat="14.421508" lon="121.040729"><ele>20.3</ele></trkpt>
+<trkpt lat="14.421612" lon="121.040399"><ele>20.6</ele></trkpt>
+<trkpt lat="14.421657" lon="121.040188"><ele>20.7</ele></trkpt>
+<trkpt lat="14.421684" lon="121.039955"><ele>20.9</ele></trkpt>
+<trkpt lat="14.421686" lon="121.039714"><ele>20.9</ele></trkpt>
+<trkpt lat="14.421669" lon="121.039522"><ele>21.0</ele></trkpt>
+<trkpt lat="14.422061" lon="121.039493"><ele>20.9</ele></trkpt>
+<trkpt lat="14.422661" lon="121.039475"><ele>19.4</ele></trkpt>
+<trkpt lat="14.422965" lon="121.039491"><ele>17.8</ele></trkpt>
+<trkpt lat="14.423174" lon="121.039492"><ele>17.9</ele></trkpt>
+<trkpt lat="14.425826" lon="121.039501"><ele>18.8</ele></trkpt>
+<trkpt lat="14.425827" lon="121.039699"><ele>19.1</ele></trkpt>
+<trkpt lat="14.425830" lon="121.040611"><ele>19.3</ele></trkpt>
+<trkpt lat="14.424848" lon="121.040609"><ele>17.4</ele></trkpt>
+<trkpt lat="14.424814" lon="121.040709"><ele>17.0</ele></trkpt>
+<trkpt lat="14.424816" lon="121.041103"><ele>15.7</ele></trkpt>
+<trkpt lat="14.422790" lon="121.041118"><ele>19.0</ele></trkpt>
+<trkpt lat="14.422802" lon="121.042246"><ele>16.6</ele></trkpt>
+<trkpt lat="14.422776" lon="121.042319"><ele>16.3</ele></trkpt>
+<trkpt lat="14.422717" lon="121.042488"><ele>16.1</ele></trkpt>
+<trkpt lat="14.422720" lon="121.042939"><ele>14.9</ele></trkpt>
+<trkpt lat="14.422729" lon="121.044468"><ele>11.4</ele></trkpt>
+<trkpt lat="14.422739" lon="121.044814"><ele>11.4</ele></trkpt>
+<trkpt lat="14.422755" lon="121.044925"><ele>11.4</ele></trkpt>
+<trkpt lat="14.422777" lon="121.045021"><ele>11.4</ele></trkpt>
+<trkpt lat="14.422816" lon="121.045090"><ele>11.4</ele></trkpt>
+<trkpt lat="14.422869" lon="121.045154"><ele>11.4</ele></trkpt>
+<trkpt lat="14.422988" lon="121.045224"><ele>11.5</ele></trkpt>
+<trkpt lat="14.423097" lon="121.045259"><ele>11.5</ele></trkpt>
+<trkpt lat="14.423336" lon="121.045299"><ele>11.5</ele></trkpt>
+<trkpt lat="14.423659" lon="121.045304"><ele>11.6</ele></trkpt>
+<trkpt lat="14.423891" lon="121.045303"><ele>12.4</ele></trkpt>
+<trkpt lat="14.424341" lon="121.045294"><ele>14.0</ele></trkpt>
+<trkpt lat="14.424621" lon="121.045296"><ele>14.9</ele></trkpt>
+<trkpt lat="14.426363" lon="121.045288"><ele>13.7</ele></trkpt>
+<trkpt lat="14.426362" lon="121.045275"><ele>13.5</ele></trkpt>
+<trkpt lat="14.426363" lon="121.045288"><ele>13.7</ele></trkpt>
+<trkpt lat="14.429055" lon="121.045262"><ele>11.5</ele></trkpt>
+<trkpt lat="14.430132" lon="121.045260"><ele>11.4</ele></trkpt>
+<trkpt lat="14.430133" lon="121.045231"><ele>11.4</ele></trkpt>
+<trkpt lat="14.430132" lon="121.045260"><ele>11.4</ele></trkpt>
+<trkpt lat="14.430182" lon="121.045259"><ele>11.3</ele></trkpt>
+<trkpt lat="14.430274" lon="121.045259"><ele>11.1</ele></trkpt>
+<trkpt lat="14.431695" lon="121.045248"><ele>10.6</ele></trkpt>
+<trkpt lat="14.432424" lon="121.045241"><ele>11.4</ele></trkpt>
+<trkpt lat="14.434088" lon="121.045232"><ele>10.9</ele></trkpt>
+<trkpt lat="14.434381" lon="121.045237"><ele>10.3</ele></trkpt>
+<trkpt lat="14.435644" lon="121.045227"><ele>9.8</ele></trkpt>
+<trkpt lat="14.436321" lon="121.045173"><ele>11.4</ele></trkpt>
+<trkpt lat="14.436989" lon="121.045141"><ele>11.0</ele></trkpt>
+<trkpt lat="14.437620" lon="121.045122"><ele>10.6</ele></trkpt>
+<trkpt lat="14.437855" lon="121.045122"><ele>10.5</ele></trkpt>
+<trkpt lat="14.438510" lon="121.045123"><ele>11.0</ele></trkpt>
+<trkpt lat="14.439229" lon="121.045122"><ele>13.7</ele></trkpt>
+<trkpt lat="14.439985" lon="121.045144"><ele>15.9</ele></trkpt>
+<trkpt lat="14.440355" lon="121.045140"><ele>16.7</ele></trkpt>
+<trkpt lat="14.440554" lon="121.045138"><ele>17.6</ele></trkpt>
+<trkpt lat="14.440791" lon="121.045151"><ele>17.7</ele></trkpt>
+<trkpt lat="14.441890" lon="121.045165"><ele>17.9</ele></trkpt>
+<trkpt lat="14.442783" lon="121.045158"><ele>15.6</ele></trkpt>
+<trkpt lat="14.443185" lon="121.045137"><ele>15.2</ele></trkpt>
+<trkpt lat="14.444587" lon="121.045125"><ele>17.6</ele></trkpt>
+<trkpt lat="14.444590" lon="121.045125"><ele>16.9</ele></trkpt>
+<trkpt lat="14.445599" lon="121.045141"><ele>16.2</ele></trkpt>
+<trkpt lat="14.445768" lon="121.045140"><ele>15.9</ele></trkpt>
+<trkpt lat="14.447507" lon="121.045133"><ele>16.7</ele></trkpt>
+<trkpt lat="14.447506" lon="121.044967"><ele>16.3</ele></trkpt>
+<trkpt lat="14.447859" lon="121.044964"><ele>15.4</ele></trkpt>
+<trkpt lat="14.448258" lon="121.044961"><ele>15.1</ele></trkpt>
+<trkpt lat="14.448292" lon="121.045131"><ele>14.8</ele></trkpt>
+<trkpt lat="14.449677" lon="121.045125"><ele>16.8</ele></trkpt>
+<trkpt lat="14.450684" lon="121.045119"><ele>16.8</ele></trkpt>
+<trkpt lat="14.451803" lon="121.045104"><ele>18.2</ele></trkpt>
+<trkpt lat="14.452104" lon="121.045075"><ele>15.8</ele></trkpt>
+<trkpt lat="14.452428" lon="121.045024"><ele>15.6</ele></trkpt>
+<trkpt lat="14.452747" lon="121.044945"><ele>16.3</ele></trkpt>
+<trkpt lat="14.452930" lon="121.044888"><ele>17.5</ele></trkpt>
+<trkpt lat="14.453069" lon="121.044828"><ele>18.5</ele></trkpt>
+<trkpt lat="14.453391" lon="121.044718"><ele>19.8</ele></trkpt>
+<trkpt lat="14.453648" lon="121.044650"><ele>22.4</ele></trkpt>
+<trkpt lat="14.453890" lon="121.044618"><ele>24.0</ele></trkpt>
+<trkpt lat="14.454053" lon="121.044622"><ele>24.9</ele></trkpt>
+<trkpt lat="14.454249" lon="121.044657"><ele>25.6</ele></trkpt>
+<trkpt lat="14.454660" lon="121.044796"><ele>27.1</ele></trkpt>
+<trkpt lat="14.454825" lon="121.044854"><ele>27.9</ele></trkpt>
+<trkpt lat="14.455335" lon="121.045055"><ele>29.9</ele></trkpt>
+<trkpt lat="14.455445" lon="121.045086"><ele>30.4</ele></trkpt>
+<trkpt lat="14.455669" lon="121.045124"><ele>31.8</ele></trkpt>
+<trkpt lat="14.456107" lon="121.045130"><ele>34.6</ele></trkpt>
+<trkpt lat="14.456104" lon="121.045105"><ele>34.6</ele></trkpt>
+<trkpt lat="14.456107" lon="121.045130"><ele>34.6</ele></trkpt>
+<trkpt lat="14.456900" lon="121.045127"><ele>37.1</ele></trkpt>
+</trkseg></trk>
+</gpx>

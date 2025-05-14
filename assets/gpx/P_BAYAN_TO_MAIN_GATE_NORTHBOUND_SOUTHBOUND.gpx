@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creator="GraphHopper" version="1.1" xmlns:gh="https://graphhopper.com/public/schema/gpx/1.1">
+<metadata><copyright author="OpenStreetMap contributors"/><link href="http://graphhopper.com"><text>GraphHopper GPX</text></link><time>2025-03-25T04:09:53.535Z</time></metadata>
+<wpt lat="14.389077" lon="121.04441"></wpt>
+<wpt lat="14.388302" lon="121.041264"></wpt>
+<wpt lat="14.387841" lon="121.039295"></wpt>
+<wpt lat="14.387664" lon="121.03854"></wpt>
+<wpt lat="14.387518" lon="121.037856"></wpt>
+<trk>
+<name>GraphHopper Track</name><desc></desc>
+<trkseg><trkpt lat="14.389077" lon="121.044410"><ele>19.4</ele></trkpt>
+<trkpt lat="14.388691" lon="121.042882"><ele>21.6</ele></trkpt>
+<trkpt lat="14.388302" lon="121.041264"><ele>27.2</ele></trkpt>
+<trkpt lat="14.387997" lon="121.039945"><ele>29.7</ele></trkpt>
+<trkpt lat="14.387848" lon="121.039322"><ele>32.1</ele></trkpt>
+<trkpt lat="14.387841" lon="121.039295"><ele>32.7</ele></trkpt>
+<trkpt lat="14.387664" lon="121.038540"><ele>44.8</ele></trkpt>
+<trkpt lat="14.387518" lon="121.037856"><ele>44.8</ele></trkpt>
+</trkseg></trk>
+</gpx>
