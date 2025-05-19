@@ -32,11 +32,12 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-android/app/google-services.json
+
 
 
 # Ignore AndroidManifest.xml
 **/AndroidManifest.xml
+/android/app/google-services.json
 
 # Ignore .env files
 .env

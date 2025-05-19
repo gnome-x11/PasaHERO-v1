@@ -43,7 +43,7 @@ class _SecondPageState extends State<SecondPage> {
               loop: true,
             ),
           ),
-          
+
           SingleChildScrollView(
             child: Column(
               children: [
@@ -153,7 +153,9 @@ class _SecondPageState extends State<SecondPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 100,),
+                const SizedBox(
+                  height: 100,
+                ),
               ],
             ),
           ),

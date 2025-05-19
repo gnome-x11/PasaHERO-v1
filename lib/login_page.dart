@@ -25,25 +25,24 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   void _showTermsModal() {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            backgroundColor: Colors.white,
-            title: Text(
-              'Terms & Conditions',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            content: SizedBox(
-              width: double.maxFinite,
-              height: 700,
-              child: TermsAndConditionsPage(),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('Close', style: TextStyle(color: Colors.green)),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: Text(
+          'Terms & Conditions',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        content: SizedBox(
+          width: double.maxFinite,
+          height: 700,
+          child: TermsAndConditionsPage(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Close', style: TextStyle(color: Colors.green)),
           ),
+        ],
+      ),
     );
   }
 
@@ -155,8 +154,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
         idToken: googleAuth.idToken,
       );
 
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
       User? user = userCredential.user;
 
@@ -165,21 +164,20 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       }
 
       if (user != null) {
-        DocumentSnapshot userDoc =
-            await FirebaseFirestore.instance
-                .collection('user')
-                .doc(user.uid)
-                .get();
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('user')
+            .doc(user.uid)
+            .get();
 
         if (!userDoc.exists) {
           await FirebaseFirestore.instance
               .collection('user')
               .doc(user.uid)
               .set({
-                'user_fname': user.displayName?.split(" ").first ?? "",
-                'user_lname': user.displayName?.split(" ").last ?? "",
-                'user_email': user.email,
-              });
+            'user_fname': user.displayName?.split(" ").first ?? "",
+            'user_lname': user.displayName?.split(" ").last ?? "",
+            'user_email': user.email,
+          });
         }
 
         _hideLoadingScreen(); // Hide loading screen before navigation
@@ -453,36 +451,35 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                     ),
                     GestureDetector(
-                      onTap:
-                          _isLoading
-                              ? null
-                              : () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  PageRouteBuilder(
-                                    transitionDuration: Duration(
-                                      milliseconds: 210,
-                                    ),
-                                    pageBuilder:
-                                        (
-                                          context,
-                                          animation1,
-                                          secondaryAnimation,
-                                        ) => RegisterAccountPage(),
-                                    transitionsBuilder: (
-                                      context,
-                                      animation,
-                                      secondaryAnimation,
-                                      child,
-                                    ) {
-                                      return FadeTransition(
-                                        opacity: animation,
-                                        child: child,
-                                      );
-                                    },
+                      onTap: _isLoading
+                          ? null
+                          : () {
+                              Navigator.pushReplacement(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(
+                                    milliseconds: 210,
                                   ),
-                                );
-                              },
+                                  pageBuilder: (
+                                    context,
+                                    animation1,
+                                    secondaryAnimation,
+                                  ) =>
+                                      RegisterAccountPage(),
+                                  transitionsBuilder: (
+                                    context,
+                                    animation,
+                                    secondaryAnimation,
+                                    child,
+                                  ) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                       child: Text(
                         "Register here",
                         style: TextStyle(color: Colors.green),

@@ -13,8 +13,7 @@ class NotiService {
 
     const initSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    const initSettings =
-        InitializationSettings(android: initSettingsAndroid);
+    const initSettings = InitializationSettings(android: initSettingsAndroid);
 
     await notificationsPlugin.initialize(initSettings);
     _isInitialized = true;

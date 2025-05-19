@@ -44,7 +44,7 @@ class _SavedRoutesPageState extends State<SavedRoutesPage> {
           ),
         ),
         iconTheme: IconThemeData(
-          color: Colors.white, 
+          color: Colors.white,
         ),
         toolbarHeight: 50,
         shape: RoundedRectangleBorder(
