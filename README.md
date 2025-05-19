@@ -1,6 +1,6 @@
-# transit
+PasaHERO version 1
 
-A new Flutter project.
+A smart transit navigation for drop off alarms and location based alerts
 
 ## Getting Started
 
