@@ -359,26 +359,62 @@ Future<List<LatLng>?> getWalkingRoute(LatLng start, LatLng end) async {
       'origin=${start.latitude},${start.longitude}&'
       'destination=${end.latitude},${end.longitude}&'
       'mode=walking&'
+      'alternatives=true&'
       'key=$googleApiKey';
 
   try {
     final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      if (data['status'] != 'OK' || data['routes'].isEmpty) return null;
 
-      final points = data['routes'][0]['overview_polyline']['points'] as String;
-      final polyline = PolyUtils.decode(points);
+    if (response.statusCode != 200) {
+      print('Google Maps API error: ${response.statusCode}');
+      return [start, end]; // fallback: straight line
+    }
 
-      return polyline
-          .map((p) => LatLng(p.x.toDouble(), p.y.toDouble()))
-          .toList();
+    final data = json.decode(response.body);
+
+    if (data['status'] != 'OK' || data['routes'].isEmpty) {
+      print('No valid route found, falling back.');
+      return [start, end]; // fallback: straight line
+    }
+
+    final routes = data['routes'] as List;
+
+    // Sort routes by distance
+    routes.sort((a, b) =>
+        a['legs'][0]['distance']['value'].compareTo(b['legs'][0]['distance']['value']));
+
+    // Try to get full detailed path from steps
+    final steps = routes[0]['legs'][0]['steps'] as List;
+    final List<LatLng> fullRoute = [];
+
+    try {
+      for (var step in steps) {
+        final points = PolyUtils.decode(step['polyline']['points']);
+        fullRoute.addAll(points.map((p) => LatLng(p.x.toDouble(), p.y.toDouble())));
+      }
+
+      if (fullRoute.isNotEmpty) return fullRoute;
+    } catch (stepError) {
+      print('Step decoding failed: $stepError');
+    }
+
+    // Fallback: overview_polyline
+    try {
+      final overviewPoints = routes[0]['overview_polyline']['points'] as String;
+      final polyline = PolyUtils.decode(overviewPoints);
+
+      return polyline.map((p) => LatLng(p.x.toDouble(), p.y.toDouble())).toList();
+    } catch (overviewError) {
+      print('Overview polyline decoding failed: $overviewError');
     }
   } catch (e) {
-    print("Error fetching walking route: $e");
+    print('Unexpected error: $e');
   }
-  return null;
+
+  // Final fallback if all else fails
+  return [start, end];
 }
+
 
 void showLoadingDialog(BuildContext context) {
   showDialog(

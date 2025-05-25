@@ -56,8 +56,8 @@ NavigationUpdateResult updateNavigationInfo({
       updatedPolylines.add(Polyline(
         polylineId: PolylineId('${original.polylineId}_passed'),
         points: passedPoints,
-        color: original.color.withOpacity(0.3),
-        width: original.width,
+        color: original.color.withOpacity(0.0),
+        width: 0,
         patterns: original.patterns,
         geodesic: original.geodesic,
       ));
@@ -66,7 +66,7 @@ NavigationUpdateResult updateNavigationInfo({
         polylineId: PolylineId('${original.polylineId}_remaining'),
         points: remainingPoints,
         color: original.color,
-        width: original.width,
+        width: 40,
         patterns: original.patterns,
         geodesic: original.geodesic,
       ));

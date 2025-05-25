@@ -19,8 +19,8 @@ class LoginRegisterPage extends StatefulWidget {
 class _LoginRegisterPageState extends State<LoginRegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isLoading = false; // Track loading state
-  bool _obscurePassword = true; // Toggle password visibility
+  bool _isLoading = false;
+  bool _obscurePassword = true;
 
   void _showTermsModal() {
     showDialog(
@@ -81,8 +81,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       );
       return;
     }
-
-    _showLoadingScreen(); // Show loading screen
+    _showLoadingScreen();
 
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -92,7 +91,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
 
       if (user != null) {
         _saveLoginSession(user.uid);
-        _hideLoadingScreen(); // Hide loading screen before navigation
+        _hideLoadingScreen();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomePage(title: 'Home')),
@@ -100,9 +99,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
         return;
       }
 
-      print("User signed in: ${userCredential.user?.email}");
     } on FirebaseAuthException catch (e) {
-      _hideLoadingScreen(); // Hide loading screen on error
+      _hideLoadingScreen();
       String errorMessage;
       if (e.code == 'user-not-found') {
         errorMessage = "No user found with this email.";

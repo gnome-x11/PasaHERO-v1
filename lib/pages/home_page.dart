@@ -1120,7 +1120,7 @@ class _HomePageState extends State<HomePage> {
                 _updateNavigationInfo(position.target);
               }
             },
-            markers: markers, // Convert Map to Set
+            markers: markers,
             onMapCreated: (GoogleMapController controller) {
               _mapController = controller;
             },
