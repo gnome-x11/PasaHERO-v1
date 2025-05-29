@@ -1026,6 +1026,11 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text("OK"),
           ),
+          TextButton(
+            onPressed: () {Navigator.pop(context);
+            },
+            child: Text("Cancel"),
+          ),
         ],
       ),
     );
@@ -1528,7 +1533,7 @@ class _HomePageState extends State<HomePage> {
     if (_routeNameController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Please enter a route name"),
+          content: Text("Please enter route name!"),
           backgroundColor: Colors.deepOrange,
         ),
       );

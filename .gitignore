@@ -38,6 +38,8 @@ migrate_working_dir/
 # Ignore AndroidManifest.xml
 **/AndroidManifest.xml
 /android/app/google-services.json
+/assets/gpx
+ios
 
 # Ignore .env files
 .env

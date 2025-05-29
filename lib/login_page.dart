@@ -47,8 +47,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   }
 
   void _saveLoginSession(String userId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_id', userId);
+    SharedPreferences prefs = await SharedPreferences.getInstance(); //
+    await prefs.setString('user_id', userId); //unique key
   }
 
   // Show loading screen
@@ -98,7 +98,6 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
         );
         return;
       }
-
     } on FirebaseAuthException catch (e) {
       _hideLoadingScreen();
       String errorMessage;

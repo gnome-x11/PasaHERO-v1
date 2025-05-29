@@ -69,10 +69,16 @@ class JourneyContent extends StatelessWidget {
       child: TextField(
         controller: routeNameController,
         decoration: InputDecoration(
-          labelText: 'Save Route',
-          hintText: 'Enter a name for the route',
+          labelText: 'Enter route name',
+          hintText: '* This field is required',
           labelStyle: GoogleFonts.poppins(
             color: Colors.grey[700],
+            fontWeight: FontWeight.w500,
+          ),
+          hintStyle: GoogleFonts.poppins(
+            color: Colors.redAccent.withOpacity(0.6),
+            fontSize: 13,
+            fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w500,
           ),
           filled: true,

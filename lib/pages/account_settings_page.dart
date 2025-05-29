@@ -68,7 +68,6 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
   bool isManualAccount = false;
   final AudioPlayer _audioPlayer = AudioPlayer(); // For sound preview
 
-  // List of available alarm sounds in your assets/alarms_sound directory
   final List<AlarmSound> alarmSounds = AlarmConstants.availableAlarmSounds;
 
   @override

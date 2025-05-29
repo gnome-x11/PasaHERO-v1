@@ -11,7 +11,6 @@ import 'package:transit/first_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   final notiService = NotiService();
   await notiService.initNotification();
   await notiService.notificationsPlugin

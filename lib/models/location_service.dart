@@ -6,7 +6,7 @@ class LocationService {
   Stream<Position> get positionStream => Geolocator.getPositionStream(
         locationSettings: LocationSettings(
           accuracy: LocationAccuracy.bestForNavigation,
-          distanceFilter: 5,
+          distanceFilter: 3,
         ),
       );
 
