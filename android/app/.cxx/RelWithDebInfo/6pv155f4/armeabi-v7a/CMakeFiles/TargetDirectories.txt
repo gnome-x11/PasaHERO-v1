@@ -1,2 +1,0 @@
-/Users/sprite/Documents/Development/transit/android/app/.cxx/RelWithDebInfo/6pv155f4/armeabi-v7a/CMakeFiles/edit_cache.dir
-/Users/sprite/Documents/Development/transit/android/app/.cxx/RelWithDebInfo/6pv155f4/armeabi-v7a/CMakeFiles/rebuild_cache.dir

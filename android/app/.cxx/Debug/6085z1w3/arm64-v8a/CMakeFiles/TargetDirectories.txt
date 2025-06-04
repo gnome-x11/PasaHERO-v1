@@ -1,2 +1,0 @@
-/Users/dexter/Documents/transit/android/app/.cxx/Debug/6085z1w3/arm64-v8a/CMakeFiles/edit_cache.dir
-/Users/dexter/Documents/transit/android/app/.cxx/Debug/6085z1w3/arm64-v8a/CMakeFiles/rebuild_cache.dir
