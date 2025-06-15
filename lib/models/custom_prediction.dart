@@ -31,7 +31,7 @@ class CustomPrediction {
     return CustomPrediction(
       description: json['description'],
       placeId: json['placeId'],
-      isCurrentLocation: json['isCurrentLocation'] ?? false,
+      isCurrentLocation: json['isCurrentLocation'] ?? true,
       isHistory: json['isHistory'] ?? false,
     );
   }

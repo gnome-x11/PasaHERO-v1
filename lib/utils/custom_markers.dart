@@ -1,14 +1,66 @@
 //utils
 
 import 'dart:ui' as ui;
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:transit/models/journey_plan.dart';
 import 'package:transit/helpers/noti_service.dart';
+import 'package:transit/models/search_helper.dart' as _searchService;
 import '../helpers/loadgpx_files.dart';
 import '../utils/journey_planner.dart';
 
+//for image icon
+Future<BitmapDescriptor> createCustomMarkerWithImage(
+    String assetPath, Color bgColor) async {
+  final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
+  final Canvas canvas = Canvas(pictureRecorder);
+  const double width = 60.0;
+  const double height = 60.0;
+  final Paint paint = Paint()..color = bgColor;
+
+  // Draw background rounded rectangle
+  final RRect rect = RRect.fromRectAndRadius(
+    Rect.fromLTWH(0, 0, width, height),
+    const Radius.circular(50),
+  );
+  canvas.drawRRect(rect, paint);
+
+  // Draw triangle pointer
+  final Path trianglePath = Path()
+    ..moveTo(width / 2 - 15, height)
+    ..lineTo(width / 2 + 15, height)
+    ..lineTo(width / 2, height + 20)
+    ..close();
+  canvas.drawPath(trianglePath, paint);
+
+  // Load image
+  final ByteData data = await rootBundle.load(assetPath);
+  final codec = await ui.instantiateImageCodec(
+    data.buffer.asUint8List(),
+    targetWidth: 50,
+    targetHeight: 50,
+  );
+  final frame = await codec.getNextFrame();
+  final ui.Image iconImage = frame.image;
+
+  // Draw image centered
+  final double imgX = (width - 50) / 2;
+  final double imgY = (height - 50) / 2;
+  canvas.drawImage(iconImage, Offset(imgX, imgY), Paint());
+
+  // Finalize image
+  final img = await pictureRecorder.endRecording().toImage(
+        width.toInt(),
+        (height + 20).toInt(),
+      );
+  final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
+  final Uint8List uint8List = byteData!.buffer.asUint8List();
+
+  return BitmapDescriptor.fromBytes(uint8List);
+}
+
+//for plain text icon controller
 Future<BitmapDescriptor> createCustomMarker(String text, Color bgColor) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
@@ -37,7 +89,7 @@ Future<BitmapDescriptor> createCustomMarker(String text, Color bgColor) async {
     text: text,
     style: const TextStyle(
       fontSize: 28,
-      color: Color(0xFFFFFFF9),
+      color: Colors.white,
       fontWeight: FontWeight.bold,
     ),
   );
@@ -82,6 +134,7 @@ Future<void> updateMarkers({
   if (hasStart) {
     final startMarkerId = MarkerId("start_location");
     final startIcon = await createCustomMarker("Start", Colors.green);
+
     updatedMarkers[startMarkerId] = Marker(
       markerId: startMarkerId,
       position: startLocationPoint,
@@ -112,11 +165,11 @@ Future<void> updateMarkers({
   if (directDistance <= 400) {
     final walkPath =
         await getWalkingRoute(startLocationPoint, destinationPoint);
-
     if (walkPath != null && walkPath.isNotEmpty) {
       updatedPolylines.add(Polyline(
         polylineId: const PolylineId('walk_direct'),
         points: walkPath,
+        //icon: Icon(icon: Icons.directions_walk),
         color: Colors.orange,
         width: 5,
         patterns: [PatternItem.dash(10), PatternItem.gap(15)],
@@ -127,7 +180,9 @@ Future<void> updateMarkers({
         SnackBar(
           content: Text(
             "Destination is within walking distance (${directDistance.toStringAsFixed(0)}m)",
+            style: TextStyle(color: Colors.white),
           ),
+          backgroundColor: Colors.deepOrange,
         ),
       );
     } else {
@@ -239,26 +294,35 @@ Future<void> updateMarkers({
     final color = routeColors[colorIndex % routeColors.length];
 
     final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
-    final boardingIcon = await createCustomMarker("Get On", color);
+    // final boardingIcon = await createCustomMarker("Get On", color);
+
+    final boardingIcon =
+        await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
+
     updatedMarkers[boardingMarkerId] = Marker(
       markerId: boardingMarkerId,
       position: segment.boardingPoint,
       icon: boardingIcon,
       infoWindow: InfoWindow(
-        title: "Ride: ${segment.route.displayName} jeepney Route",
-        snippet: "(Dito ang sakayan)",
+        title: "Ride this jeepney with route",
+        snippet: " ${segment.route.displayName}",
       ),
     );
 
     final alightingMarkerId = MarkerId("alighting_${segment.route.name}");
-    final alightingIcon = await createCustomMarker("Get Off", color);
+    //final alightingIcon = await createCustomMarker("Get off", color);
+
+    final alightingIcon =
+        await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
+
     updatedMarkers[alightingMarkerId] = Marker(
       markerId: alightingMarkerId,
       position: segment.alightingPoint,
       icon: alightingIcon,
       infoWindow: InfoWindow(
-        title: "Get Off",
-        snippet: "(Dito ang babaan)",
+        title: "Drop off location",
+        snippet: "Landmark: ${await _searchService.getAddressFromLatLngV2(segment.alightingPoint)}",
+
       ),
     );
 
@@ -287,3 +351,4 @@ Future<void> updateMarkers({
 
   onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
 }
+

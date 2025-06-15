@@ -30,33 +30,33 @@ class RouteData {
         .replaceAll('LASPINAS', 'LAS PINAS');
 
     if (cleanName.contains('ALABANG TO MUNTINLUPA LAS PINAS BOUNDARY')) {
-      return 'Alabang to Muntinlupa-Las Piñas Boundary';
+      return 'South Station, Alabang to Las Piñas';
     } else if (cleanName.contains('ALABANG TO SUCAT BAYBAYIN')) {
-      return 'Alabang to Sucat (Baybayin)';
+      return 'Alabang, Montillano to Sucat via Baybayin';
     } else if (cleanName.contains('ALABANG TO SUCAT KALIWA')) {
-      return 'Alabang to Sucat (Kaliwa)';
+      return 'South Station, Alabang to Sucat Kaliwa via West Service Road';
     } else if (cleanName.contains('ALABANG TO SUCAT KANAN')) {
-      return 'Alabang to Sucat (Kanan)';
+      return 'Montillano, Alabang to Sucat via East Service Road';
     } else if (cleanName.contains('ALABANG TO TUNASAN')) {
-      return 'Alabang to Tunasan';
+      return 'Alabang to Muntinlupa, Tunasan via National Road';
     } else if (cleanName.contains('BAYAN TO MAIN GATE')) {
-      return 'Bayan to Main Gate';
+      return 'Muntinlupa, Bayan to Main Gate Katihan';
     } else if (cleanName
         .contains('MUNTINLUPA LAS PINAS BOUNDARY TO SOUTHVILLE3')) {
-      return 'Muntinlupa-Las Piñas Boundary to Southville 3';
+      return 'Investment Drive to Southville 3 Terminal';
     } else if (cleanName.contains('POBLACION SOUTHVILLE 3')) {
-      return 'Poblacion to Southville 3';
+      return 'Bayan, Muntinlupa to Southville 3 via Susana';
     } else if (cleanName.contains('SOUTHVILLE3 TO ALABANG')) {
-      return 'Southville 3 to Alabang';
+      return 'Southville 3 to Alabang via National Road';
     } else if (cleanName.contains('TUNASAN TO ALABANG')) {
-      return 'Tunasan to Alabang';
+      return 'Muntinlupa, Tunasan to Alabang via National Road';
     } else if (cleanName
         .contains('BIAZON ROAD TO MUNTINLUPA LAS PINAS BOUNDARY')) {
-      return 'Biazon Road to Muntinlupa-Las Piñas Boundary';
+      return 'Biazon Road to Investment Drive Las Piñas/Muntinlupa Boundary';
     } else if (cleanName.contains('LAS PINAS BOUNDARY TO ALABANG')) {
-      return 'Muntinlupa-Las Piñas Boundary to Alabang';
+      return 'Alabang Zapote - Alabang Palengke ';
     } else if (cleanName.contains('SOUTHVILLE3 TO POBLACION')) {
-      return 'Southville 3 to Bayan, Poblacion';
+      return 'Southville 3 Terminal to Bayan, Poblacion';
     }
 
     // Format remaining names with proper capitalization

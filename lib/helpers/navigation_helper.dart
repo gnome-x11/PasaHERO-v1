@@ -82,7 +82,7 @@ NavigationUpdateResult updateNavigationInfo({
         int fromIndex = poly.points.indexOf(from);
         int toIndex = poly.points.indexOf(to);
         if (fromIndex < toIndex) {
-          double distance = 0;
+          double distance = 5; //compare nodes in the gpx files
           for (int i = fromIndex; i < toIndex; i++) {
             distance += calculateDistance(poly.points[i], poly.points[i + 1]);
           }

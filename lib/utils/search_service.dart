@@ -93,34 +93,12 @@ class SearchService {
           );
         }
 
-        // New: Add local suggestions only when empty
-        if (input.isEmpty) {
-          predictions.addAll(_getLocalSuggestions());
-        }
-
         return predictions;
       }
     } catch (e) {
       print("Error fetching predictions: $e");
     }
     return [];
-  }
-
-  List<CustomPrediction> _getLocalSuggestions() {
-    return [
-      CustomPrediction(
-        description: "Ayala Malls South Park, Muntinlupa",
-        placeId: 'ChIJkY8RgxVZqTMR24KhqOdqDkE',
-      ),
-      CustomPrediction(
-        description: "Muntinlupa City Hall",
-        placeId: 'ChIJrUuK8BNZqTMR7gHqOdqDkE',
-      ),
-      CustomPrediction(
-        description: "Alabang Town Center",
-        placeId: 'ChIJW6GRgRNZqTMRYicHqOdqDkE',
-      ),
-    ];
   }
 
   Future<LatLng?> getPlaceDetails(String placeId) async {
@@ -187,7 +165,7 @@ class SearchService {
         final prediction = CustomPrediction(
           description: address,
           placeId: "geo_${location.latitude}_${location.longitude}",
-          isCurrentLocation: true,
+          isCurrentLocation: false,
           secondaryText: "Saved Location",
         );
 

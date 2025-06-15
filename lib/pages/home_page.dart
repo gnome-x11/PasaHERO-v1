@@ -615,7 +615,7 @@ class _HomePageState extends State<HomePage> {
       if (isStart) {
         _startLocationController.text = prediction.description;
         _startLocationPoint = location;
-        _showStartPredictions = false;
+        _showStartPredictions = true;
       } else {
         _destinationController.text = prediction.description;
         _destinationPoint = location;
@@ -630,7 +630,7 @@ class _HomePageState extends State<HomePage> {
         CustomPrediction(
           description: prediction.description,
           placeId: prediction.placeId,
-          isHistory: false,
+          isHistory: true,
         ),
       );
 
@@ -668,10 +668,12 @@ class _HomePageState extends State<HomePage> {
       _searchHistory.clear();
     });
   }
+ 
 
+ //cards data
   Future<List<Widget>> _buildStepByStepGuide(JourneyPlan journeyPlan) async {
     List<Widget> steps = [];
-    final walkingDistanceThreshold = 50;
+    final walkingDistanceThreshold = 10;
 
     if (journeyPlan.walkingSegments.isNotEmpty &&
         journeyPlan.walkingSegments.first.isNotEmpty) {
@@ -681,7 +683,7 @@ class _HomePageState extends State<HomePage> {
         steps.add(WalkCard(
           title: "Walk to boarding point",
           subtitle: await _searchService.getAddressFromLatLngV2(
-              journeyPlan.jeepSegments.first.boardingPoint),
+                journeyPlan.jeepSegments.first.boardingPoint),
           distance: walkDistance,
         ));
       }
@@ -733,6 +735,8 @@ class _HomePageState extends State<HomePage> {
 
     return steps;
   }
+
+  //end of card data
 
   void _showBottomSheet(
       BuildContext context, Future<JourneyPlan?> journeyFuture) {
