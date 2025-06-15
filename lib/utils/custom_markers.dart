@@ -203,7 +203,6 @@ Future<void> updateMarkers({
     body: 'Your route has been successfully calculated.',
   );
 
-  // ✅ PATCH: Filter out short initial jeep segments
   if (journeyPlan.jeepSegments.length == 2) {
     final first = journeyPlan.jeepSegments.first;
     final second = journeyPlan.jeepSegments.last;
@@ -240,14 +239,14 @@ Future<void> updateMarkers({
     final color = routeColors[colorIndex % routeColors.length];
 
     final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
-    final boardingIcon = await createCustomMarker("Board", color);
+    final boardingIcon = await createCustomMarker("Get On", color);
     updatedMarkers[boardingMarkerId] = Marker(
       markerId: boardingMarkerId,
       position: segment.boardingPoint,
       icon: boardingIcon,
       infoWindow: InfoWindow(
-        title: "Board ${segment.route.displayName}",
-        snippet: "Start of jeepney ride",
+        title: "Ride: ${segment.route.displayName} jeepney Route",
+        snippet: "(Dito ang sakayan)",
       ),
     );
 
@@ -258,8 +257,8 @@ Future<void> updateMarkers({
       position: segment.alightingPoint,
       icon: alightingIcon,
       infoWindow: InfoWindow(
-        title: "Get Off ${segment.route.displayName}",
-        snippet: "End of jeepney ride",
+        title: "Get Off",
+        snippet: "(Dito ang babaan)",
       ),
     );
 

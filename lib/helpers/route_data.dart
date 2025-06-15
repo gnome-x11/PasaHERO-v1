@@ -27,7 +27,7 @@ class RouteData {
         .replaceAll('_SOUTHBOUND', '')
         .replaceAll('_NORTHBOUND_SOUTHBOUND', '')
         .replaceAll('_', ' ')
-        .replaceAll('LASPINAS', 'LAS PINAS'); // Correct typo in filenames
+        .replaceAll('LASPINAS', 'LAS PINAS');
 
     if (cleanName.contains('ALABANG TO MUNTINLUPA LAS PINAS BOUNDARY')) {
       return 'Alabang to Muntinlupa-Las Piñas Boundary';

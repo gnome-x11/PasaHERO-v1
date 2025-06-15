@@ -144,6 +144,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 ),
               ),
               SizedBox(height: 50),*/
+
               Text(
                 'Contact Us',
                 style: GoogleFonts.poppins(
@@ -153,7 +154,6 @@ class _AboutUsPageState extends State<AboutUsPage> {
               ),
               SizedBox(height: 30),
 
-              /// 📨 Suggestion Box
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(

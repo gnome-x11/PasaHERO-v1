@@ -50,7 +50,7 @@ class VibrationConstants {
 
 class VibrationPattern {
   final String name;
-  final List<int> pattern; // Duration in milliseconds
+  final List<int> pattern;
 
   const VibrationPattern({required this.name, required this.pattern});
 }
@@ -252,12 +252,13 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
   Future<void> _previewSound(AlarmSound sound) async {
     try {
       await _audioPlayer.stop();
-      debugPrint("Playing from: ${sound.assetPath}");
+      // debugPrint("Playing from: ${sound.assetPath}");
       await _audioPlayer.play(AssetSource(sound.assetPath));
     } catch (e) {
-      debugPrint("Error playing sound: $e");
+      // debugPrint("Error playing sound: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Could not play the sound: ${e.toString()}")),
+        SnackBar(content: Text("Could not play the sound: ${e.toString()}")
+        ),
       );
     }
   }
