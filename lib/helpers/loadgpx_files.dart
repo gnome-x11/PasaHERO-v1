@@ -22,6 +22,7 @@ Future<void> loadGPX() async {
     'assets/gpx/P_MUNTINLUPA_TO_LASPINAS_BOUNDARY_TO_ALABANG_SOUTHBOUND.gpx',
     'assets/gpx/P_POBLACION_SOUTHVILLE_3_SOUTHBOUND.gpx',
     'assets/gpx/P_TUNASAN_TO_ALABANG_NORTHBOUND.gpx',
+    'assets/gpx/PLMUN_TRICYCLE_TERMINAL.gpx',
   ];
 
   for (String file in gpxFiles) {

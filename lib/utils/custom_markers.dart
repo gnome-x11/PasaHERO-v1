@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:transit/models/journey_plan.dart';
 import 'package:transit/helpers/noti_service.dart';
+import 'package:transit/models/search_helper.dart';
 import 'package:transit/models/search_helper.dart' as _searchService;
 import '../helpers/loadgpx_files.dart';
 import '../utils/journey_planner.dart';
@@ -173,7 +174,7 @@ Future<void> updateMarkers({
         color: Colors.orange,
         width: 5,
         patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-        geodesic: true,
+        geodesic: false,
       ));
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -192,7 +193,7 @@ Future<void> updateMarkers({
         color: const Color.fromARGB(255, 255, 115, 0),
         width: 8,
         patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-        geodesic: true,
+        geodesic: false,
       ));
     }
 
@@ -345,7 +346,7 @@ Future<void> updateMarkers({
       color: Colors.orange,
       width: 8,
       patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-      geodesic: true,
+      geodesic: false ,
     ));
   }
 

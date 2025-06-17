@@ -408,7 +408,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _showSearchBar = !_showSearchBar;
       if (_showSearchBar) {
-        _showStartPredictions = false;
+        _showStartPredictions = true;
         _showDestPredictions = false;
       }
     });
@@ -791,6 +791,8 @@ class _HomePageState extends State<HomePage> {
       destRoute: destRoute,
     );
 
+    
+
     _showBottomSheet(context, journeyFuture);
   }
 
@@ -927,7 +929,7 @@ class _HomePageState extends State<HomePage> {
   List<LatLng> _getAllGetOffPoints() {
     final points = <LatLng>[];
     for (var marker in markers) {
-      if (marker.infoWindow.title?.contains("Get Off") == true) {
+      if (marker.infoWindow.title?.contains("Drop off location") == true || marker.infoWindow.title?.contains('End') == true) {
         points.add(marker.position);
       }
     }
@@ -937,7 +939,7 @@ class _HomePageState extends State<HomePage> {
   void _updateAlarmCircles() {
     _alarmCircles.clear();
     for (var marker in markers) {
-      if (marker.infoWindow.title?.contains("Get Off") == true) {
+      if (marker.infoWindow.title?.contains("Drop off location") == true || marker.infoWindow.title?.contains("End") == true) {
         _alarmCircles.add(Circle(
           circleId: CircleId(
               'alarm_${marker.position.latitude}_${marker.position.longitude}'),

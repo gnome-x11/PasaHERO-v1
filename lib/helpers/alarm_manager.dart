@@ -67,6 +67,7 @@ class AlarmManager {
           point: point,
           radius: radius ?? alarmRadius ?? 50.0,
         )));
+  // print('Alarm set to: $activeAlarms');
   }
 
   void startMonitoring() {

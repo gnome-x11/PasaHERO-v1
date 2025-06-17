@@ -1,6 +1,7 @@
 //helper
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:transit/models/nearest_point.dart';
 
 class RouteData {
   final String name;
@@ -10,6 +11,7 @@ class RouteData {
   final String direction;
   final String baseName;
   final String displayName;
+  final Map<LatLng, NearestPoint> indexCache = {};
 
   RouteData({
     required this.name,
