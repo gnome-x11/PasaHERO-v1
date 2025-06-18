@@ -6,8 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:transit/models/journey_plan.dart';
 import 'package:transit/helpers/noti_service.dart';
-import 'package:transit/models/search_helper.dart';
-import 'package:transit/models/search_helper.dart' as _searchService;
+import 'package:transit/models/search_helper.dart' as searchService;
 import '../helpers/loadgpx_files.dart';
 import '../utils/journey_planner.dart';
 
@@ -118,6 +117,7 @@ double pathLength(List<LatLng> path) {
   return total;
 }
 
+
 Future<void> updateMarkers({
   required BuildContext context,
   required LatLng? startLocationPoint,
@@ -163,43 +163,44 @@ Future<void> updateMarkers({
   final double directDistance =
       calculateDistance(startLocationPoint, destinationPoint);
 
-  if (directDistance <= 400) {
-    final walkPath =
-        await getWalkingRoute(startLocationPoint, destinationPoint);
-    if (walkPath != null && walkPath.isNotEmpty) {
-      updatedPolylines.add(Polyline(
-        polylineId: const PolylineId('walk_direct'),
-        points: walkPath,
-        //icon: Icon(icon: Icons.directions_walk),
-        color: Colors.orange,
-        width: 5,
-        patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-        geodesic: false,
-      ));
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "Destination is within walking distance (${directDistance.toStringAsFixed(0)}m)",
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.deepOrange,
-        ),
-      );
-    } else {
-      updatedPolylines.add(Polyline(
-        polylineId: const PolylineId('walk_direct'),
-        points: [startLocationPoint, destinationPoint],
-        color: const Color.fromARGB(255, 255, 115, 0),
-        width: 8,
-        patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-        geodesic: false,
-      ));
-    }
 
-    onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
-    return;
-  }
+  // if (directDistance <= 200) {
+  //   final walkPath =
+  //       await getWalkingRoute(startLocationPoint, destinationPoint);
+  //   if (walkPath != null && walkPath.isNotEmpty) {
+  //     updatedPolylines.add(Polyline(
+  //       polylineId: const PolylineId('walk_direct'),
+  //       points: walkPath,
+  //       color: Colors.orange,
+  //       width: 3,
+  //       patterns: [PatternItem.dash(10), PatternItem.gap(15)],
+  //       geodesic: false,
+  //     ));
+
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(
+  //           "Destination is within walking distance (${directDistance.toStringAsFixed(0)}m)",
+  //           style: TextStyle(color: Colors.white),
+  //         ),
+  //         backgroundColor: Colors.deepOrange,
+  //       ),
+  //     );
+  //   } else {
+  //     updatedPolylines.add(Polyline(
+  //       polylineId: const PolylineId('walk_direct'),
+  //       points: [startLocationPoint, destinationPoint],
+  //       color: const Color.fromARGB(255, 255, 115, 0),
+  //       width: 3,
+  //       patterns: [PatternItem.dash(10), PatternItem.gap(15)],
+  //       geodesic: false,
+  //     ));
+  //   }
+
+  //   onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
+  //   return;
+  // }
 
   final travelDirection =
       determineTravelDirection(startLocationPoint, destinationPoint);
@@ -294,21 +295,22 @@ Future<void> updateMarkers({
   for (final segment in journeyPlan.jeepSegments) {
     final color = routeColors[colorIndex % routeColors.length];
 
-    final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
-    // final boardingIcon = await createCustomMarker("Get On", color);
+final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
+// final boardingIcon = await createCustomMarker("Get On", color);
 
-    final boardingIcon =
-        await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
+final boardingIcon =
+    await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
 
-    updatedMarkers[boardingMarkerId] = Marker(
-      markerId: boardingMarkerId,
-      position: segment.boardingPoint,
-      icon: boardingIcon,
-      infoWindow: InfoWindow(
-        title: "Ride this jeepney with route",
-        snippet: " ${segment.route.displayName}",
-      ),
-    );
+updatedMarkers[boardingMarkerId] = Marker(
+  markerId: boardingMarkerId,
+  position: segment.boardingPoint,
+  icon: boardingIcon,
+  infoWindow: InfoWindow(
+    title: "Ride this jeepney with route",
+    snippet: segment.route.displayName,
+  ),
+);
+
 
     final alightingMarkerId = MarkerId("alighting_${segment.route.name}");
     //final alightingIcon = await createCustomMarker("Get off", color);
@@ -322,7 +324,7 @@ Future<void> updateMarkers({
       icon: alightingIcon,
       infoWindow: InfoWindow(
         title: "Drop off location",
-        snippet: "Landmark: ${await _searchService.getAddressFromLatLngV2(segment.alightingPoint)}",
+        snippet: "Landmark: ${await searchService.getAddressFromLatLngV2(segment.alightingPoint)}",
 
       ),
     );

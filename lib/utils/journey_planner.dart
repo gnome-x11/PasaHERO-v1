@@ -1,13 +1,13 @@
 // jpurney_planner_model.dart
 import 'dart:async';
-import 'dart:convert';
+//import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:transit/pages/home_page.dart';
-import 'package:google_maps_utils/poly_utils.dart';
+//import 'package:transit/pages/home_page.dart';
+//import 'package:google_maps_utils/poly_utils.dart';
 import 'package:transit/helpers/loadgpx_files.dart';
 
 import '../helpers/route_data.dart';
@@ -327,10 +327,12 @@ Future<JourneyPlan?> _buildDirectJourney(
   if (segment == null) return null;
 
   jeepSegments.add(segment);
+
   
   final walkFutures = [
     getWalkingRoute(startPoint, segment.boardingPoint),
     getWalkingRoute(segment.alightingPoint, endPoint),
+    
   ];
   
   final walkResults = await Future.wait(walkFutures);
@@ -341,6 +343,7 @@ Future<JourneyPlan?> _buildDirectJourney(
   return JourneyPlan(
     jeepSegments: jeepSegments,
     walkingSegments: walkingSegments,
+    
   );
 }
 
@@ -529,55 +532,74 @@ RouteData? findSingleRoute(LatLng start, LatLng end) {
   return null;
 }
 
-// ========== Walking Route Optimization ==========
+// // ========== Walking Route Optimization ==========
+// Future<List<LatLng>?> getWalkingRoute(LatLng start, LatLng end) async {
+//   final distance = calculateDistance(start, end);
+//   if (distance < 50) return [start, end]; // Skip API for short distances
+
+//   final String url = 'https://maps.googleapis.com/maps/api/directions/json?'
+//       'origin=${start.latitude},${start.longitude}&'
+//       'destination=${end.latitude},${end.longitude}&'
+//       'mode=walking&key=$googleApiKey';
+
+//   try {
+//     final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 5));
+
+//     if (response.statusCode != 200) return _fallbackRoute(start, end);
+
+//     final data = json.decode(response.body);
+//     if (data['status'] != 'OK' || data['routes'].isEmpty) {
+//       return _fallbackRoute(start, end);
+//     }
+
+//     return _decodeRoute(data['routes'][0], start, end);
+//   } catch (_) {
+//     return _fallbackRoute(start, end);
+//   }
+// }
+
 Future<List<LatLng>?> getWalkingRoute(LatLng start, LatLng end) async {
   final distance = calculateDistance(start, end);
-  if (distance < 100) return [start, end]; // Skip API for short distances
+  if (distance < 50) return [start, end];
 
-  final String url = 'https://maps.googleapis.com/maps/api/directions/json?'
-      'origin=${start.latitude},${start.longitude}&'
-      'destination=${end.latitude},${end.longitude}&'
-      'mode=walking&key=$googleApiKey';
-
-  try {
-    final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 5));
-
-    if (response.statusCode != 200) return _fallbackRoute(start, end);
-
-    final data = json.decode(response.body);
-    if (data['status'] != 'OK' || data['routes'].isEmpty) {
-      return _fallbackRoute(start, end);
-    }
-
-    return _decodeRoute(data['routes'][0], start, end);
-  } catch (_) {
-    return _fallbackRoute(start, end);
-  }
+  return interpolatePath(start, end);
 }
 
-List<LatLng> _fallbackRoute(LatLng start, LatLng end) => [start, end];
+List<LatLng> interpolatePath(LatLng start, LatLng end, {int segments = 10}) {
+  final latStep = (end.latitude - start.latitude) / segments;
+  final lngStep = (end.longitude - start.longitude) / segments;
 
-List<LatLng> _decodeRoute(Map<String, dynamic> route, LatLng start, LatLng end) {
-  try {
-    // Try detailed steps first
-    final steps = route['legs'][0]['steps'] as List;
-    final detailedPath = steps.expand((step) {
-      return PolyUtils.decode(step['polyline']['points']);
-    }).map((p) => LatLng(p.x.toDouble(), p.y.toDouble())).toList();
-
-    if (detailedPath.isNotEmpty) return detailedPath;
-  } catch (_) {}
-
-  // Fallback to overview polyline
-  try {
-    final overview = route['overview_polyline']['points'] as String;
-    return PolyUtils.decode(overview)
-        .map((p) => LatLng(p.x.toDouble(), p.y.toDouble()))
-        .toList();
-  } catch (_) {
-    return _fallbackRoute(start, end);
-  }
+  return List.generate(
+    segments + 1,
+    (i) => LatLng(start.latitude + latStep * i, start.longitude + lngStep * i),
+  );
 }
+
+
+
+// List<LatLng> _fallbackRoute(LatLng start, LatLng end) => [start, end];
+
+// List<LatLng> _decodeRoute(Map<String, dynamic> route, LatLng start, LatLng end) {
+//   try {
+//     // Try detailed steps first
+//     final steps = route['legs'][0]['steps'] as List;
+//     final detailedPath = steps.expand((step) {
+//       return PolyUtils.decode(step['polyline']['points']);
+//     }).map((p) => LatLng(p.x.toDouble(), p.y.toDouble())).toList();
+
+//     if (detailedPath.isNotEmpty) return detailedPath;
+//   } catch (_) {}
+
+//   //Fallback to overview polyline
+//   try {
+//     final overview = route['overview_polyline']['points'] as String;
+//     return PolyUtils.decode(overview)
+//         .map((p) => LatLng(p.x.toDouble(), p.y.toDouble()))
+//         .toList();
+//   } catch (_) {
+//     return _fallbackRoute(start, end);
+//   }
+// }
 
 // ========== Segment Creation ==========
 RouteSegment? createRouteSegment({

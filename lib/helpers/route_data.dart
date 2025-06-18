@@ -20,6 +20,7 @@ class RouteData {
     required this.endPoint,
     required this.direction,
     required this.baseName,
+
   }) : displayName = _getDisplayName(name);
 
   static String _getDisplayName(String fileName) {
@@ -29,6 +30,7 @@ class RouteData {
         .replaceAll('_SOUTHBOUND', '')
         .replaceAll('_NORTHBOUND_SOUTHBOUND', '')
         .replaceAll('_', ' ')
+        .replaceAll('TRICYCLE' , '')
         .replaceAll('LASPINAS', 'LAS PINAS');
 
     if (cleanName.contains('ALABANG TO MUNTINLUPA LAS PINAS BOUNDARY')) {
@@ -59,6 +61,8 @@ class RouteData {
       return 'Alabang Zapote - Alabang Palengke ';
     } else if (cleanName.contains('SOUTHVILLE3 TO POBLACION')) {
       return 'Southville 3 Terminal to Bayan, Poblacion';
+    } else if (cleanName.contains('PLMUN_TRICYCLE_TERMINAL')) {
+      return 'PRILASSCATODA Muntisipsyo';
     }
 
     // Format remaining names with proper capitalization

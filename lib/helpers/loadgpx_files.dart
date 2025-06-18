@@ -55,6 +55,8 @@ String parseDirectionFromFileName(String fileName) {
     return 'northbound';
   } else if (fileName.contains('SOUTHBOUND')) {
     return 'southbound';
+  } else if (fileName.contains('TRICYCLE')) {
+    return 'tricycle route';
   }
   return 'bidirectional';
 }
@@ -63,7 +65,9 @@ String getBaseRouteName(String fileName) {
   return fileName
       .replaceAll('_NORTHBOUND', '')
       .replaceAll('_SOUTHBOUND', '')
-      .replaceAll('_NORTHBOUND_SOUTHBOUND', '');
+      .replaceAll('_NORTHBOUND_SOUTHBOUND', '')
+      .replaceAll('TRICYCLE', '');
+      
 }
 
 String determineTravelDirection(LatLng start, LatLng end) {
