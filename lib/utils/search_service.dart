@@ -146,24 +146,48 @@ class SearchService {
   }
 
   Future<String> getAddressFromLatLngV2(LatLng location) async {
-    try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        location.latitude,
-        location.longitude,
-      );
+  try {
+    final url =
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}&key=$googleApiKey';
 
-      if (placemarks.isNotEmpty) {
-        Placemark place = placemarks.first;
-        final address = [
-          place.street,
-          place.subLocality,
-          place.locality,
-          place.country
-        ].where((part) => part?.isNotEmpty ?? false).join(', ');
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
 
-        // Enhanced: Save to history with location marker
+      if (data['status'] == 'OK' && data['results'].isNotEmpty) {
+        final components = data['results'][0]['address_components'];
+
+        String? street;
+        String? subLocality;
+        String? city;
+        String? country;
+
+        for (var component in components) {
+          final types = List<String>.from(component['types']);
+          if (types.contains('route')) {
+            street = component['long_name'];
+          } else if (types.contains('sublocality') ||
+              types.contains('sublocality_level_1')) {
+            subLocality = component['long_name'];
+          } else if (types.contains('locality')) {
+            city = component['long_name'];
+          } else if (types.contains('country')) {
+            country = component['long_name'];
+          }
+        }
+
+        final readableAddress = [
+          if (street != null) street,
+          if (subLocality != null) subLocality,
+          if (city != null) city,
+          if (country != null) country,
+        ].join(', ');
+
+        final finalAddress =
+            readableAddress.isNotEmpty ? readableAddress : data['results'][0]['formatted_address'];
+
         final prediction = CustomPrediction(
-          description: address,
+          description: finalAddress,
           placeId: "geo_${location.latitude}_${location.longitude}",
           isCurrentLocation: false,
           secondaryText: "Saved Location",
@@ -173,14 +197,17 @@ class SearchService {
         history.add(prediction);
         await saveSearchHistory(history);
 
-        return address;
+        return finalAddress;
       }
-      return "Unknown Location";
-    } catch (e) {
-      print("Error getting address: $e");
-      return "Unknown Location";
     }
+
+    return "Unknown Location";
+  } catch (e) {
+    print("Error using Google Geocoding API: $e");
+    return "Unknown Location";
   }
+}
+
 
   // New feature: Optional nearby search (won't affect existing code)
   Future<List<CustomPrediction>> findNearbyPlaces(

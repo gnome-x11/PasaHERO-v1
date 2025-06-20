@@ -140,9 +140,13 @@ class JourneyContent extends StatelessWidget {
                 Icons.flag, "Destination:", destinationController.text,
                 iconColor: Colors.red),
             const SizedBox(height: 5),
-            Text(
-              "Jeepney Routes: ${journeyPlan.vehicleSegments.map((e) => e.route.displayName).join(' → ')}",
-              style: GoogleFonts.poppins(fontSize: 14),
+            Column(
+              children: [
+                Text(
+                    "Routes to ride:\n\n${journeyPlan.vehicleSegments.map((e) => e.route.displayName).join('→')}",
+                  style: GoogleFonts.poppins(fontSize: 14),
+                ),
+              ],
             ),
             const SizedBox(
               height: 10,
@@ -162,7 +166,7 @@ class JourneyContent extends StatelessWidget {
       children: [
         const SizedBox(height: 30),
         Text(
-          "Route Guide Instructions",
+          "Step By Step Guide",
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.bold,

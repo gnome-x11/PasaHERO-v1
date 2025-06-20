@@ -670,6 +670,22 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<int> getDurationInMinutes(
+      LatLng start, LatLng end, String mode) async {
+    final url =
+        'https://maps.googleapis.com/maps/api/directions/json?origin=${start.latitude},${start.longitude}&destination=${end.latitude},${end.longitude}&mode=$mode&key=$googleApiKey';
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final durationSec = data['routes'][0]['legs'][0]['duration']['value'];
+      return (durationSec / 60).round(); // return in minutes
+    } else {
+      throw Exception('Failed to get duration from Directions API');
+    }
+  }
+
   Future<Map<String, dynamic>> _buildStepByStepGuide(
       JourneyPlan journeyPlan) async {
     final steps = <Widget>[];
@@ -687,12 +703,26 @@ class _HomePageState extends State<HomePage> {
         final boardingAddress =
             await _searchService.getAddressFromLatLngV2(boardingPoint);
 
+        // Calculate walking duration using Directions API for more accurate time
+        // Calculate total walking distance for the segment
+        final walkPoints = journeyPlan.walkingSegments.first;
+        double totalWalkDistance = 0.0;
+        for (int i = 0; i < walkPoints.length - 1; i++) {
+          totalWalkDistance +=
+              calculateDistance(walkPoints[i], walkPoints[i + 1]);
+        }
+        // Estimate duration based on average walking speed (1.4 m/s ≈ 5 km/h)
+        final duration =
+            (totalWalkDistance / 1.4 / 60).round(); // duration in minutes
+
         steps.add(WalkCard(
           distance: distance,
-          direction: 'Walk to $boardingAddress', // ← show destination
+          direction: 'Walk to $boardingAddress',
+          duration: duration, // ← show destination
         ));
 
-        journeySteps.add(JourneyStep(type: 'walk', price: 0));
+        journeySteps.add(JourneyStep(
+            type: 'walk', price: 0, duration: duration, distance: distance));
       }
     }
 
@@ -704,20 +734,38 @@ class _HomePageState extends State<HomePage> {
       final alightingAddress =
           await _searchService.getAddressFromLatLngV2(segment.alightingPoint);
 
+      final duration = await getDurationInMinutes(
+        segment.boardingPoint,
+        segment.alightingPoint,
+        'motor',
+      );
+
       if (segment.route.vehicleType == 'tricycle') {
         steps.add(TricycleCard(
-          routeName: segment.route.displayName,
-          boarding: boardingAddress,
-          alighting: alightingAddress,
+            routeName: segment.route.displayName,
+            boarding: boardingAddress,
+            alighting: alightingAddress,
+            distance: distanceRemaining,
+            duration: duration));
+        journeySteps.add(JourneyStep(
+          type: 'tricycle',
+          price: 13,
+          duration: duration,
+          distance: distanceRemaining,
         ));
-        journeySteps.add(JourneyStep(type: 'tricycle', price: 13));
       } else {
         steps.add(JeepCard(
           routeName: segment.route.displayName,
           boarding: boardingAddress,
           alighting: alightingAddress,
+          distance: distanceRemaining,
+          duration: duration,
         ));
-        journeySteps.add(JourneyStep(type: 'jeep', price: 13));
+        journeySteps.add(JourneyStep(
+            type: 'jeep',
+            price: 13,
+            duration: duration,
+            distance: distanceRemaining));
       }
 
       // Add transfer walk
@@ -728,29 +776,57 @@ class _HomePageState extends State<HomePage> {
         if (transferDistance > walkingDistanceThreshold) {
           final nextBoardingAddress = await _searchService
               .getAddressFromLatLngV2(nextSegment.boardingPoint);
+
+          final duration = await getDurationInMinutes(
+            segment.alightingPoint,
+            nextSegment.boardingPoint,
+            'walking',
+          );
+
           steps.add(WalkCard(
             distance: transferDistance,
-            direction: 'Walk to $nextBoardingAddress', // ← transfer destination
+            direction: 'Walk to $nextBoardingAddress',
+            duration: duration, // ← transfer destination
           ));
-          journeySteps.add(JourneyStep(type: 'walk', price: 0));
+          journeySteps.add(JourneyStep(
+              type: 'walk',
+              price: 0,
+              duration: duration,
+              distance: distanceRemaining));
         }
       }
     }
 
-    // Add final walk to destination if applicable
-    if (journeyPlan.walkingSegments.length > 1 &&
-        journeyPlan.walkingSegments.last.isNotEmpty) {
-      final distance = calculateWalkDistance(journeyPlan.walkingSegments.last);
-      if (distance > walkingDistanceThreshold) {
-        final destinationAddress =
-            await _searchService.getAddressFromLatLngV2(_destinationPoint!);
-        steps.add(WalkCard(
-          distance: distance,
-          direction: 'Walk to $destinationAddress', // ← final destination
-        ));
-        journeySteps.add(JourneyStep(type: 'walk', price: 0));
-      }
+    final lastWalkSegment = journeyPlan.walkingSegments.last;
+if (lastWalkSegment.length > 1) {
+  final distance = calculateWalkDistance(lastWalkSegment);
+  if (distance > walkingDistanceThreshold) {
+    final start = lastWalkSegment.first;
+    final end = lastWalkSegment.last;
+
+    final destinationAddress =
+        await _searchService.getAddressFromLatLngV2(_destinationPoint!);
+
+    int duration = await getDurationInMinutes(start, end, 'walking');
+    if (duration == 0 || duration > 30) {
+      // fallback if too big or failed
+      duration = (distance / 1.4 / 60).round();
     }
+
+    steps.add(WalkCard(
+      distance: distance,
+      direction: 'Walk to $destinationAddress',
+      duration: duration,
+    ));
+    journeySteps.add(JourneyStep(
+      type: 'walk',
+      price: 0,
+      duration: duration,
+      distance: distance,
+    ));
+  }
+}
+
 
     // Add arrival card
     steps.add(ArrivalCard(destination: _destinationController.text));
