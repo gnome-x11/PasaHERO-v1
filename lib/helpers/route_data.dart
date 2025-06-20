@@ -11,6 +11,7 @@ class RouteData {
   final String direction;
   final String baseName;
   final String displayName;
+  final String vehicleType; // Add this property
   final Map<LatLng, NearestPoint> indexCache = {};
 
   RouteData({
@@ -20,6 +21,7 @@ class RouteData {
     required this.endPoint,
     required this.direction,
     required this.baseName,
+    required this.vehicleType, // Default to jeep
 
   }) : displayName = _getDisplayName(name);
 
@@ -30,11 +32,11 @@ class RouteData {
         .replaceAll('_SOUTHBOUND', '')
         .replaceAll('_NORTHBOUND_SOUTHBOUND', '')
         .replaceAll('_', ' ')
-        .replaceAll('TRICYCLE' , '')
-        .replaceAll('LASPINAS', 'LAS PINAS');
+        .replaceAll('_TRICYCLE' , '')
+      .replaceAll('LASPINAS', 'LAS PINAS');
 
-    if (cleanName.contains('ALABANG TO MUNTINLUPA LAS PINAS BOUNDARY')) {
-      return 'South Station, Alabang to Las Piñas';
+  if (cleanName.contains('ALABANG TO MUNTINLUPA LAS PINAS BOUNDARY')) {
+    return 'South Station, Alabang to Las Piñas';
     } else if (cleanName.contains('ALABANG TO SUCAT BAYBAYIN')) {
       return 'Alabang, Montillano to Sucat via Baybayin';
     } else if (cleanName.contains('ALABANG TO SUCAT KALIWA')) {
@@ -61,8 +63,8 @@ class RouteData {
       return 'Alabang Zapote - Alabang Palengke ';
     } else if (cleanName.contains('SOUTHVILLE3 TO POBLACION')) {
       return 'Southville 3 Terminal to Bayan, Poblacion';
-    } else if (cleanName.contains('PLMUN_TRICYCLE_TERMINAL')) {
-      return 'PRILASSCATODA Muntisipsyo';
+    } else if (cleanName.contains('PLMUN TRICYCLE TERMINAL')) {
+      return 'PRILASSCATODA | Munisipyo';
     }
 
     // Format remaining names with proper capitalization
@@ -70,5 +72,15 @@ class RouteData {
       if (word.isEmpty) return word;
       return word[0].toUpperCase() + word.substring(1).toLowerCase();
     }).join(' ');
+  }
+
+  int indexOfPoint(LatLng point, {double tolerance = 0.00001}) {
+    for (int i = 0; i < path.length; i++) {
+      if ((path[i].latitude - point.latitude).abs() < tolerance &&
+          (path[i].longitude - point.longitude).abs() < tolerance) {
+        return i;
+      }
+    }
+    return -1;
   }
 }

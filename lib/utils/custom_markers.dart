@@ -117,7 +117,6 @@ double pathLength(List<LatLng> path) {
   return total;
 }
 
-
 Future<void> updateMarkers({
   required BuildContext context,
   required LatLng? startLocationPoint,
@@ -159,11 +158,6 @@ Future<void> updateMarkers({
     onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
     return;
   }
-
-  final double directDistance =
-      calculateDistance(startLocationPoint, destinationPoint);
-
-
 
   // if (directDistance <= 200) {
   //   final walkPath =
@@ -260,9 +254,9 @@ Future<void> updateMarkers({
     body: 'Your route has been successfully calculated.',
   );
 
-  if (journeyPlan.jeepSegments.length == 2) {
-    final first = journeyPlan.jeepSegments.first;
-    final second = journeyPlan.jeepSegments.last;
+  if (journeyPlan.vehicleSegments.length == 2) {
+    final first = journeyPlan.vehicleSegments.first;
+    final second = journeyPlan.vehicleSegments.last;
 
     final walkToSecondBoarding = calculateDistance(
       startLocationPoint,
@@ -277,12 +271,12 @@ Future<void> updateMarkers({
 
       final filteredPlan = JourneyPlan(
         walkingSegments: [walkPath ?? []],
-        jeepSegments: [second],
+        vehicleSegments: [second],
       );
 
       // replace the original journeyPlan with filtered one
-      journeyPlan.jeepSegments.clear();
-      journeyPlan.jeepSegments.addAll(filteredPlan.jeepSegments);
+      journeyPlan.vehicleSegments.clear();
+      journeyPlan.vehicleSegments.addAll(filteredPlan.vehicleSegments);
 
       journeyPlan.walkingSegments.clear();
       journeyPlan.walkingSegments.addAll(filteredPlan.walkingSegments);
@@ -292,48 +286,119 @@ Future<void> updateMarkers({
   final routeColors = [Colors.blue, Colors.deepPurpleAccent, Colors.pink];
   int colorIndex = 0;
 
-  for (final segment in journeyPlan.jeepSegments) {
-    final color = routeColors[colorIndex % routeColors.length];
+//   for (final segment in journeyPlan.jeepSegments) {
+//     final color = routeColors[colorIndex % routeColors.length];
 
-final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
-// final boardingIcon = await createCustomMarker("Get On", color);
+//     final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
+// // final boardingIcon = await createCustomMarker("Get On", color);
 
-final boardingIcon =
-    await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
+//     final boardingIcon =
+//         await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
 
-updatedMarkers[boardingMarkerId] = Marker(
-  markerId: boardingMarkerId,
-  position: segment.boardingPoint,
-  icon: boardingIcon,
-  infoWindow: InfoWindow(
-    title: "Ride this jeepney with route",
-    snippet: segment.route.displayName,
-  ),
-);
+//     updatedMarkers[boardingMarkerId] = Marker(
+//       markerId: boardingMarkerId,
+//       position: segment.boardingPoint,
+//       icon: boardingIcon,
+//       infoWindow: InfoWindow(
+//         title: "Ride this jeepney with route",
+//         snippet: segment.route.displayName,
+//       ),
+//     );
 
+//     final alightingMarkerId = MarkerId("alighting_${segment.route.name}");
+//     //final alightingIcon = await createCustomMarker("Get off", color);
 
+//     final alightingIcon =
+//         await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
+
+//     updatedMarkers[alightingMarkerId] = Marker(
+//       markerId: alightingMarkerId,
+//       position: segment.alightingPoint,
+//       icon: alightingIcon,
+//       infoWindow: InfoWindow(
+//         title: "Drop off location",
+//         snippet:
+//             "Landmark: ${await searchService.getAddressFromLatLngV2(segment.alightingPoint)}",
+//       ),
+//     );
+
+//     updatedPolylines.add(Polyline(
+//       polylineId: PolylineId("route_${segment.route.name}"),
+//       points: segment.pathSegment,
+//       color: color,
+//       width: 5,
+//       geodesic: false,
+//     ));
+
+//     colorIndex++;
+//   }
+
+  for (final segment in journeyPlan.vehicleSegments) {
+    Color color;
+    String iconAsset;
+    String markerText;
+
+    if (segment.route.vehicleType == 'tricycle') {
+      color = Colors.green; // Distinct color for tricycles
+      iconAsset = 'lib/assets/tricycle-icon.png';
+      markerText = "Ride this tricycle";
+    } else {
+      color = routeColors[colorIndex % routeColors.length];
+      iconAsset = 'lib/assets/jeep-icon.png';
+      markerText = "Ride this jeepney";
+    }
+
+    final boardingIcon = await createCustomMarkerWithImage(iconAsset, color);
+
+    final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
+    updatedMarkers[boardingMarkerId] = Marker(
+      markerId: boardingMarkerId,
+      position: segment.boardingPoint,
+      icon: boardingIcon,
+      infoWindow: InfoWindow(
+        title: markerText,
+        snippet: segment.route.displayName,
+      ),
+    );
+
+    final alightingIcon = await createCustomMarkerWithImage(iconAsset, color);
     final alightingMarkerId = MarkerId("alighting_${segment.route.name}");
-    //final alightingIcon = await createCustomMarker("Get off", color);
-
-    final alightingIcon =
-        await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
-
     updatedMarkers[alightingMarkerId] = Marker(
       markerId: alightingMarkerId,
       position: segment.alightingPoint,
       icon: alightingIcon,
       infoWindow: InfoWindow(
         title: "Drop off location",
-        snippet: "Landmark: ${await searchService.getAddressFromLatLngV2(segment.alightingPoint)}",
-
+        snippet:
+            "Landmark: ${await searchService.getAddressFromLatLngV2(segment.alightingPoint)}",
       ),
     );
 
+    // Determine path for tricycles (show only partial segment)
+    List<LatLng> displayPath;
+    if (segment.route.vehicleType == 'tricycle') {
+      final startIdx = segment.route.path.indexOf(segment.boardingPoint);
+      final endIdx = segment.route.path.indexOf(segment.alightingPoint);
+
+      if (startIdx != -1 && endIdx != -1) {
+        displayPath = startIdx < endIdx
+            ? segment.route.path.sublist(startIdx, endIdx + 1)
+            : segment.route.path
+                .sublist(endIdx, startIdx + 1)
+                .reversed
+                .toList();
+      } else {
+        displayPath = segment.pathSegment;
+      }
+    } else {
+      displayPath = segment.pathSegment;
+    }
+
     updatedPolylines.add(Polyline(
       polylineId: PolylineId("route_${segment.route.name}"),
-      points: segment.pathSegment,
+      points: displayPath,
       color: color,
-      width: 5,
+      width: segment.route.vehicleType == 'tricycle' ? 4 : 5,
       geodesic: false,
     ));
 
@@ -348,10 +413,9 @@ updatedMarkers[boardingMarkerId] = Marker(
       color: Colors.orange,
       width: 8,
       patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-      geodesic: false ,
+      geodesic: false,
     ));
   }
 
   onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
 }
-

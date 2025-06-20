@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transit/helpers/jpurney_step.dart';
+import 'package:transit/models/route_cards.dart';
 import '../models/journey_plan.dart';
 
 class JourneyContent extends StatelessWidget {
@@ -10,7 +12,8 @@ class JourneyContent extends StatelessWidget {
   final VoidCallback onSaveRoute;
   final TextEditingController startLocationController;
   final TextEditingController destinationController;
-  final Future<List<Widget>> Function(JourneyPlan) buildStepByStepGuide;
+  final Future<Map<String, dynamic>> Function(JourneyPlan) buildStepByStepGuide;
+
 
   const JourneyContent({
     super.key,
@@ -41,7 +44,6 @@ class JourneyContent extends StatelessWidget {
             _buildDragHandle(),
             _buildRouteSaveForm(context),
             _buildRouteInfoCard(journeyPlan),
-            _buildFareBase(journeyPlan),
             _buildRouteGuideInstructions(journeyPlan),
           ],
         ),
@@ -139,7 +141,7 @@ class JourneyContent extends StatelessWidget {
                 iconColor: Colors.red),
             const SizedBox(height: 5),
             Text(
-              "Jeepney Routes: ${journeyPlan.jeepSegments.map((e) => e.route.displayName).join(' → ')}",
+              "Jeepney Routes: ${journeyPlan.vehicleSegments.map((e) => e.route.displayName).join(' → ')}",
               style: GoogleFonts.poppins(fontSize: 14),
             ),
             const SizedBox(
@@ -151,75 +153,53 @@ class JourneyContent extends StatelessWidget {
     );
   }
 
-  Widget _buildFareBase(JourneyPlan journeyPlan) {
-    const double baseFarePerRoute = 13.0;
-    int numberOfRoutes = journeyPlan.jeepSegments.length;
-    double totalFare = numberOfRoutes * baseFarePerRoute;
-
-    return Padding(
-      padding: EdgeInsets.all(2.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 30),
-          Text("Estimated Calculated Fare",
-              style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              )),
-          const SizedBox(height: 10),
-          Text(
-            "$numberOfRoutes route(s) × 13 pesos",
-            style: GoogleFonts.poppins(fontSize: 16),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            "Total: ${totalFare.toStringAsFixed(2)} pesos",
-            style: GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildRouteGuideInstructions(JourneyPlan journeyPlan) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 30),
-          Text(
-            "Route Guide Instructions",
-            style: GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.green,
-            ),
+  return Padding(
+    padding: const EdgeInsets.all(5.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 30),
+        Text(
+          "Route Guide Instructions",
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.green,
           ),
-          const SizedBox(height: 10),
-          FutureBuilder<List<Widget>>(
-            future: buildStepByStepGuide(journeyPlan),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text("Error: ${snapshot.error}"));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text("No steps available"));
-              }
-              return Column(children: snapshot.data!);
-            },
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        const SizedBox(height: 10),
+        FutureBuilder<Map<String, dynamic>>(
+          future: buildStepByStepGuide(journeyPlan),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            } else if (!snapshot.hasData) {
+              return const Center(child: Text("No steps available"));
+            }
+
+            // Retrieve both journeySteps and cards from the result
+            final journeySteps = snapshot.data!['journeySteps'] as List<JourneyStep>;
+            final cards = snapshot.data!['steps'] as List<Widget>;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                JourneySummary(journeySteps: journeySteps),
+                const SizedBox(height: 10),
+                ...cards,
+              ],
+            );
+          },
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget _buildInfoRow(IconData icon, String label, String value,
       {Color? iconColor}) {

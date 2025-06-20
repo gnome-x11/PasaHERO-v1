@@ -22,7 +22,7 @@ Future<void> loadGPX() async {
     'assets/gpx/P_MUNTINLUPA_TO_LASPINAS_BOUNDARY_TO_ALABANG_SOUTHBOUND.gpx',
     'assets/gpx/P_POBLACION_SOUTHVILLE_3_SOUTHBOUND.gpx',
     'assets/gpx/P_TUNASAN_TO_ALABANG_NORTHBOUND.gpx',
-    'assets/gpx/PLMUN_TRICYCLE_TERMINAL.gpx',
+    'assets/gpx/P_PLMUN_TRICYCLE_TERMINAL.gpx',
   ];
 
   for (String file in gpxFiles) {
@@ -33,6 +33,9 @@ Future<void> loadGPX() async {
       String fileName = file.split('/').last.replaceAll('.gpx', '');
       String direction = parseDirectionFromFileName(fileName);
       String baseName = getBaseRouteName(fileName);
+       String vehicleType = fileName.contains('TRICYCLE') 
+          ? 'tricycle' 
+          : 'jeep';
 
       routes.add(RouteData(
         name: fileName,
@@ -41,6 +44,7 @@ Future<void> loadGPX() async {
         endPoint: path.last,
         direction: direction,
         baseName: baseName,
+        vehicleType: vehicleType, 
       ));
     } catch (e) {
       print("Error loading GPX $file: $e");
@@ -56,7 +60,7 @@ String parseDirectionFromFileName(String fileName) {
   } else if (fileName.contains('SOUTHBOUND')) {
     return 'southbound';
   } else if (fileName.contains('TRICYCLE')) {
-    return 'tricycle route';
+    return 'tricycle'; 
   }
   return 'bidirectional';
 }
@@ -66,7 +70,7 @@ String getBaseRouteName(String fileName) {
       .replaceAll('_NORTHBOUND', '')
       .replaceAll('_SOUTHBOUND', '')
       .replaceAll('_NORTHBOUND_SOUTHBOUND', '')
-      .replaceAll('TRICYCLE', '');
+      .replaceAll('_TRICYCLE', '');
       
 }
 

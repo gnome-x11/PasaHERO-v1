@@ -14,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transit/helpers/jpurney_step.dart';
 
 //models
 import '../models/route_cards.dart';
@@ -668,75 +669,98 @@ class _HomePageState extends State<HomePage> {
       _searchHistory.clear();
     });
   }
- 
 
- //cards data
-  Future<List<Widget>> _buildStepByStepGuide(JourneyPlan journeyPlan) async {
-    List<Widget> steps = [];
+  Future<Map<String, dynamic>> _buildStepByStepGuide(
+      JourneyPlan journeyPlan) async {
+    final steps = <Widget>[];
+    final journeySteps = <JourneyStep>[];
     final walkingDistanceThreshold = 10;
 
+    // Add initial walk to first boarding point
     if (journeyPlan.walkingSegments.isNotEmpty &&
         journeyPlan.walkingSegments.first.isNotEmpty) {
-      final walkDistance =
-          calculateWalkDistance(journeyPlan.walkingSegments.first);
-      if (walkDistance > walkingDistanceThreshold) {
+      final distance = calculateWalkDistance(journeyPlan.walkingSegments.first);
+      if (distance > walkingDistanceThreshold) {
+        final boardingPoint = journeyPlan.vehicleSegments.first.boardingPoint;
+
+        // Get address of destination point of the walk
+        final boardingAddress =
+            await _searchService.getAddressFromLatLngV2(boardingPoint);
+
         steps.add(WalkCard(
-          title: "Walk to boarding point",
-          subtitle: await _searchService.getAddressFromLatLngV2(
-                journeyPlan.jeepSegments.first.boardingPoint),
-          distance: walkDistance,
+          distance: distance,
+          direction: 'Walk to $boardingAddress', // ← show destination
         ));
+
+        journeySteps.add(JourneyStep(type: 'walk', price: 0));
       }
     }
 
-    for (int i = 0; i < journeyPlan.jeepSegments.length; i++) {
-      final segment = journeyPlan.jeepSegments[i];
-      steps.add(JeepCard(
-        routeName: segment.route.displayName,
-        boarding:
-            await _searchService.getAddressFromLatLngV2(segment.boardingPoint),
-        alighting:
-            await _searchService.getAddressFromLatLngV2(segment.alightingPoint),
-      ));
+    // Add vehicle segments
+    for (int i = 0; i < journeyPlan.vehicleSegments.length; i++) {
+      final segment = journeyPlan.vehicleSegments[i];
+      final boardingAddress =
+          await _searchService.getAddressFromLatLngV2(segment.boardingPoint);
+      final alightingAddress =
+          await _searchService.getAddressFromLatLngV2(segment.alightingPoint);
 
-      if (i < journeyPlan.jeepSegments.length - 1) {
-        final nextSegment = journeyPlan.jeepSegments[i + 1];
+      if (segment.route.vehicleType == 'tricycle') {
+        steps.add(TricycleCard(
+          routeName: segment.route.displayName,
+          boarding: boardingAddress,
+          alighting: alightingAddress,
+        ));
+        journeySteps.add(JourneyStep(type: 'tricycle', price: 13));
+      } else {
+        steps.add(JeepCard(
+          routeName: segment.route.displayName,
+          boarding: boardingAddress,
+          alighting: alightingAddress,
+        ));
+        journeySteps.add(JourneyStep(type: 'jeep', price: 13));
+      }
+
+      // Add transfer walk
+      if (i < journeyPlan.vehicleSegments.length - 1) {
+        final nextSegment = journeyPlan.vehicleSegments[i + 1];
         final transferDistance = calculateDistance(
             segment.alightingPoint, nextSegment.boardingPoint);
-
         if (transferDistance > walkingDistanceThreshold) {
+          final nextBoardingAddress = await _searchService
+              .getAddressFromLatLngV2(nextSegment.boardingPoint);
           steps.add(WalkCard(
-            title: "Transfer to next jeepney",
-            subtitle: await _searchService.getAddressFromLatLngV2(
-                journeyPlan.jeepSegments.first.boardingPoint),
             distance: transferDistance,
+            direction: 'Walk to $nextBoardingAddress', // ← transfer destination
           ));
+          journeySteps.add(JourneyStep(type: 'walk', price: 0));
         }
       }
     }
 
+    // Add final walk to destination if applicable
     if (journeyPlan.walkingSegments.length > 1 &&
         journeyPlan.walkingSegments.last.isNotEmpty) {
-      final walkDistance =
-          calculateWalkDistance(journeyPlan.walkingSegments.last);
-      if (walkDistance > walkingDistanceThreshold) {
+      final distance = calculateWalkDistance(journeyPlan.walkingSegments.last);
+      if (distance > walkingDistanceThreshold) {
+        final destinationAddress =
+            await _searchService.getAddressFromLatLngV2(_destinationPoint!);
         steps.add(WalkCard(
-          title: "Walk to destination",
-          subtitle:
-              await _searchService.getAddressFromLatLngV2(_destinationPoint!),
-          distance: walkDistance,
+          distance: distance,
+          direction: 'Walk to $destinationAddress', // ← final destination
         ));
+        journeySteps.add(JourneyStep(type: 'walk', price: 0));
       }
     }
 
-    steps.add(ArrivalCard(
-      destination: _destinationController.text,
-    ));
+    // Add arrival card
+    steps.add(ArrivalCard(destination: _destinationController.text));
 
-    return steps;
+    // RETURN both UI widgets and journey steps
+    return {
+      'steps': steps,
+      'journeySteps': journeySteps,
+    };
   }
-
-  //end of card data
 
   void _showBottomSheet(
       BuildContext context, Future<JourneyPlan?> journeyFuture) {
@@ -790,8 +814,6 @@ class _HomePageState extends State<HomePage> {
       startRoute: startRoute,
       destRoute: destRoute,
     );
-
-    
 
     _showBottomSheet(context, journeyFuture);
   }
@@ -929,7 +951,8 @@ class _HomePageState extends State<HomePage> {
   List<LatLng> _getAllGetOffPoints() {
     final points = <LatLng>[];
     for (var marker in markers) {
-      if (marker.infoWindow.title?.contains("Drop off location") == true || marker.infoWindow.title?.contains('End') == true) {
+      if (marker.infoWindow.title?.contains("Drop off location") == true ||
+          marker.infoWindow.title?.contains('End') == true) {
         points.add(marker.position);
       }
     }
@@ -939,7 +962,8 @@ class _HomePageState extends State<HomePage> {
   void _updateAlarmCircles() {
     _alarmCircles.clear();
     for (var marker in markers) {
-      if (marker.infoWindow.title?.contains("Drop off location") == true || marker.infoWindow.title?.contains("End") == true) {
+      if (marker.infoWindow.title?.contains("Drop off location") == true ||
+          marker.infoWindow.title?.contains("End") == true) {
         _alarmCircles.add(Circle(
           circleId: CircleId(
               'alarm_${marker.position.latitude}_${marker.position.longitude}'),
@@ -1033,7 +1057,8 @@ class _HomePageState extends State<HomePage> {
             child: Text("OK"),
           ),
           TextButton(
-            onPressed: () {Navigator.pop(context);
+            onPressed: () {
+              Navigator.pop(context);
             },
             child: Text("Cancel"),
           ),
@@ -1137,9 +1162,7 @@ class _HomePageState extends State<HomePage> {
             },
             polylines: polylines,
             circles: _alarmCircles,
-           
           ),
-
 
           if (_showSearchBar)
             Positioned(
