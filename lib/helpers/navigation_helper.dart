@@ -1,5 +1,6 @@
 // helper
 
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:transit/utils/journey_planner.dart';
 
@@ -53,12 +54,17 @@ NavigationUpdateResult updateNavigationInfo({
       List<LatLng> passedPoints = points.sublist(0, closestIndex + 1);
       List<LatLng> remainingPoints = points.sublist(closestIndex);
 
+      bool isWalkPath = original.color == Colors.orange ||
+          original.polylineId.value.contains('walk');
+
+      final walkPattern = [PatternItem.dot, PatternItem.gap(8)];
+
       updatedPolylines.add(Polyline(
         polylineId: PolylineId('${original.polylineId}_passed'),
         points: passedPoints,
-        color: original.color.withOpacity(0.10),
-        width: original.width,
-        patterns: original.patterns,
+        color: original.color.withOpacity(0.9),
+        width: 8,
+        patterns: isWalkPath ? walkPattern : original.patterns,
         geodesic: original.geodesic,
       ));
 
@@ -66,11 +72,10 @@ NavigationUpdateResult updateNavigationInfo({
         polylineId: PolylineId('${original.polylineId}_remaining'),
         points: remainingPoints,
         color: original.color,
-        width: original.width,
-        patterns: original.patterns,
+        width: 8,
+        patterns: isWalkPath ? walkPattern : original.patterns,
         geodesic: original.geodesic,
       ));
-
     } else {
       updatedPolylines.add(original);
     }

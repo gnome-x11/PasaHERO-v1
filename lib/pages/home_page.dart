@@ -1430,7 +1430,7 @@ if (lastWalkSegment.length > 1) {
       backgroundColor: Colors.redAccent,
       child: FittedBox(
         child: Icon(
-          _showSearchBar ? Icons.close : Icons.stop_circle,
+          _showSearchBar ? Icons.close : Icons.square,
           color: Colors.white,
         ),
       ),

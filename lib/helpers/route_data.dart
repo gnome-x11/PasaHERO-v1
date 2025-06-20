@@ -65,7 +65,17 @@ class RouteData {
       return 'Southville 3 Terminal to Bayan, Poblacion';
     } else if (cleanName.contains('PLMUN TRICYCLE TERMINAL')) {
       return 'PRILASSCATODA | Munisipyo';
-    }
+    } else if (cleanName.contains('MAINGATE TRICYCLE TERMINAL')) {
+      return 'NBPTODAI | Type B';
+    } else if (cleanName.contains('BAYAN TRICYCLE TERMINAL')) {
+      return 'NBPTODAI | Bayan';
+    } else if (cleanName.contains('NBP TRICYCLE TERMINAL')) {
+      return 'NBPTODAI | NBP Reservation';
+    } else if (cleanName.contains('TYPEB TRICYCLE TERMINAL')) {
+      return 'NBPTODAI | Maximum';
+    } else if (cleanName.contains('MAIN TRICYCLE TERMINAL')) {
+      return 'PLMUNTODA | PLMun';
+    } 
 
     // Format remaining names with proper capitalization
     return cleanName.split(' ').map((word) {
