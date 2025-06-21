@@ -11,7 +11,7 @@ class RouteData {
   final String direction;
   final String baseName;
   final String displayName;
-  final String vehicleType; // Add this property
+  final String vehicleType;
   final Map<LatLng, NearestPoint> indexCache = {};
 
   RouteData({
@@ -21,7 +21,7 @@ class RouteData {
     required this.endPoint,
     required this.direction,
     required this.baseName,
-    required this.vehicleType, // Default to jeep
+    required this.vehicleType,
 
   }) : displayName = _getDisplayName(name);
 
@@ -63,19 +63,35 @@ class RouteData {
       return 'Alabang Zapote - Alabang Palengke ';
     } else if (cleanName.contains('SOUTHVILLE3 TO POBLACION')) {
       return 'Southville 3 Terminal to Bayan, Poblacion';
-    } else if (cleanName.contains('PLMUN TRICYCLE TERMINAL')) {
+    } else if (cleanName.contains('MUNISIPYO TRICYCLE TERMINAL')) {
       return 'PRILASSCATODA | Munisipyo';
     } else if (cleanName.contains('MAINGATE TRICYCLE TERMINAL')) {
       return 'NBPTODAI | Type B';
     } else if (cleanName.contains('BAYAN TRICYCLE TERMINAL')) {
       return 'NBPTODAI | Bayan';
     } else if (cleanName.contains('NBP TRICYCLE TERMINAL')) {
-      return 'NBPTODAI | NBP Reservation';
+      return 'NBPTODA | NBP Reservation';
     } else if (cleanName.contains('TYPEB TRICYCLE TERMINAL')) {
       return 'NBPTODAI | Maximum';
     } else if (cleanName.contains('MAIN TRICYCLE TERMINAL')) {
       return 'PLMUNTODA | PLMun';
-    } 
+    } else if (cleanName.contains('BRUGER TRICYCLE TERMINAL')) {
+      return 'BSPPMTODAI | Putatan';
+    } else if (cleanName.contains("BUKAL TRICYCLE TERMINAL")) {
+      return 'ABSBPMTODA | Bukal';
+    } else if (cleanName.contains('SOLDIERS TRICYCLE TERMINAL')) {
+      return 'SHIMCTODA | Soldiers';
+    } else if (cleanName.contains("PHASE3 TRICYCLE TERMINAL")){
+      return 'SHIMCTODA | Soldiers';
+    } else if (cleanName.contains('BAYANAN2 TRICYCLE TERMINAL')) {
+      return 'BBTODAI | Bayanan';
+    } else if (cleanName.contains('BAYANAN TRICYCLE TERMINAL')) {
+      return 'BBTODAI | Bayanan';
+    } else if (cleanName.contains('NOVO TRICYCLE TEMRINAL')) {
+      return 'ACMSTODA | Alabang';
+    } else if (cleanName.contains('KATARUNGAN TRICYCLE TERMINAL')) {
+      return 'JUSVILTODA | Katarungan Village';
+    }
 
     // Format remaining names with proper capitalization
     return cleanName.split(' ').map((word) {
@@ -84,13 +100,13 @@ class RouteData {
     }).join(' ');
   }
 
-  int indexOfPoint(LatLng point, {double tolerance = 0.00001}) {
-    for (int i = 0; i < path.length; i++) {
-      if ((path[i].latitude - point.latitude).abs() < tolerance &&
-          (path[i].longitude - point.longitude).abs() < tolerance) {
-        return i;
-      }
-    }
-    return -1;
-  }
+  // int indexOfPoint(LatLng point, {double tolerance = 0.00001}) {
+  //   for (int i = 0; i < path.length; i++) {
+  //     if ((path[i].latitude - point.latitude).abs() < tolerance &&
+  //         (path[i].longitude - point.longitude).abs() < tolerance) {
+  //       return i;
+  //     }
+  //   }
+  //   return -1;
+  // }
 }

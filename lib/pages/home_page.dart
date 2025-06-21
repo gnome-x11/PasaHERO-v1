@@ -405,11 +405,10 @@ class _HomePageState extends State<HomePage> {
   void _toggleSearchBar() {
     _startLocationFocusNode.unfocus();
     _destinationFocusNode.unfocus();
-
     setState(() {
       _showSearchBar = !_showSearchBar;
       if (_showSearchBar) {
-        _showStartPredictions = true;
+        _showStartPredictions = false;
         _showDestPredictions = false;
       }
     });
@@ -441,7 +440,7 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemCount: combinedList.length +
-                      (_searchHistory.isNotEmpty ? 1 : 0) +
+                      (_searchHistory.isNotEmpty ? 0 : 1) +
                       (predictions.isNotEmpty ? 1 : 0),
                   itemBuilder: (context, index) {
                     int headerOffset = 0;
@@ -488,12 +487,13 @@ class _HomePageState extends State<HomePage> {
                                 ? Colors.blue
                                 : (isStart ? Colors.blue : Colors.red),
                           ),
-                          onTap: () => _onPredictionSelected(
-                              prediction, isStart = false),
+                          onTap: () =>
+                          _onPredictionSelected(prediction, isStart),
                         );
                       }
                     }
                     return const SizedBox.shrink();
+
                   }),
             ),
           ),
@@ -593,7 +593,7 @@ class _HomePageState extends State<HomePage> {
     if (!_searchHistory
         .any((entry) => entry.description == prediction.description)) {
       _searchHistory.insert(
-        0,
+          0,
         CustomPrediction(
           description: prediction.description,
           placeId: prediction.placeId,
@@ -616,7 +616,7 @@ class _HomePageState extends State<HomePage> {
       if (isStart) {
         _startLocationController.text = prediction.description;
         _startLocationPoint = location;
-        _showStartPredictions = true;
+        _showStartPredictions = false;
       } else {
         _destinationController.text = prediction.description;
         _destinationPoint = location;
@@ -798,35 +798,34 @@ class _HomePageState extends State<HomePage> {
     }
 
     final lastWalkSegment = journeyPlan.walkingSegments.last;
-if (lastWalkSegment.length > 1) {
-  final distance = calculateWalkDistance(lastWalkSegment);
-  if (distance > walkingDistanceThreshold) {
-    final start = lastWalkSegment.first;
-    final end = lastWalkSegment.last;
+    if (lastWalkSegment.length > 1) {
+      final distance = calculateWalkDistance(lastWalkSegment);
+      if (distance > walkingDistanceThreshold) {
+        final start = lastWalkSegment.first;
+        final end = lastWalkSegment.last;
 
-    final destinationAddress =
-        await _searchService.getAddressFromLatLngV2(_destinationPoint!);
+        final destinationAddress =
+            await _searchService.getAddressFromLatLngV2(_destinationPoint!);
 
-    int duration = await getDurationInMinutes(start, end, 'walking');
-    if (duration == 0 || duration > 30) {
-      // fallback if too big or failed
-      duration = (distance / 1.4 / 60).round();
+        int duration = await getDurationInMinutes(start, end, 'walking');
+        if (duration == 0 || duration > 30) {
+          // fallback if too big or failed
+          duration = (distance / 1.4 / 60).round();
+        }
+
+        steps.add(WalkCard(
+          distance: distance,
+          direction: 'Walk to $destinationAddress',
+          duration: duration,
+        ));
+        journeySteps.add(JourneyStep(
+          type: 'walk',
+          price: 0,
+          duration: duration,
+          distance: distance,
+        ));
+      }
     }
-
-    steps.add(WalkCard(
-      distance: distance,
-      direction: 'Walk to $destinationAddress',
-      duration: duration,
-    ));
-    journeySteps.add(JourneyStep(
-      type: 'walk',
-      price: 0,
-      duration: duration,
-      distance: distance,
-    ));
-  }
-}
-
 
     // Add arrival card
     steps.add(ArrivalCard(destination: _destinationController.text));
@@ -1344,7 +1343,7 @@ if (lastWalkSegment.length > 1) {
             children: <Widget>[
               _buildSearchField(
                 controller: _startLocationController,
-                hintText: "Your Location",
+                hintText: "Your Current Location",
                 isStart: true,
                 leadingIcon: Icons.my_location,
                 iconColor: const Color.fromARGB(255, 130, 195, 249),

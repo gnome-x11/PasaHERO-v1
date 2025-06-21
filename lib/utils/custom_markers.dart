@@ -159,43 +159,6 @@ Future<void> updateMarkers({
     return;
   }
 
-  // if (directDistance <= 200) {
-  //   final walkPath =
-  //       await getWalkingRoute(startLocationPoint, destinationPoint);
-  //   if (walkPath != null && walkPath.isNotEmpty) {
-  //     updatedPolylines.add(Polyline(
-  //       polylineId: const PolylineId('walk_direct'),
-  //       points: walkPath,
-  //       color: Colors.orange,
-  //       width: 3,
-  //       patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-  //       geodesic: false,
-  //     ));
-
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(
-  //           "Destination is within walking distance (${directDistance.toStringAsFixed(0)}m)",
-  //           style: TextStyle(color: Colors.white),
-  //         ),
-  //         backgroundColor: Colors.deepOrange,
-  //       ),
-  //     );
-  //   } else {
-  //     updatedPolylines.add(Polyline(
-  //       polylineId: const PolylineId('walk_direct'),
-  //       points: [startLocationPoint, destinationPoint],
-  //       color: const Color.fromARGB(255, 255, 115, 0),
-  //       width: 3,
-  //       patterns: [PatternItem.dash(10), PatternItem.gap(15)],
-  //       geodesic: false,
-  //     ));
-  //   }
-
-  //   onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
-  //   return;
-  // }
-
   final travelDirection =
       determineTravelDirection(startLocationPoint, destinationPoint);
   final startRoute =
@@ -286,53 +249,6 @@ Future<void> updateMarkers({
   final routeColors = [Colors.blue, Colors.deepPurpleAccent, Colors.pink];
   int colorIndex = 0;
 
-//   for (final segment in journeyPlan.jeepSegments) {
-//     final color = routeColors[colorIndex % routeColors.length];
-
-//     final boardingMarkerId = MarkerId("boarding_${segment.route.name}");
-// // final boardingIcon = await createCustomMarker("Get On", color);
-
-//     final boardingIcon =
-//         await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
-
-//     updatedMarkers[boardingMarkerId] = Marker(
-//       markerId: boardingMarkerId,
-//       position: segment.boardingPoint,
-//       icon: boardingIcon,
-//       infoWindow: InfoWindow(
-//         title: "Ride this jeepney with route",
-//         snippet: segment.route.displayName,
-//       ),
-//     );
-
-//     final alightingMarkerId = MarkerId("alighting_${segment.route.name}");
-//     //final alightingIcon = await createCustomMarker("Get off", color);
-
-//     final alightingIcon =
-//         await createCustomMarkerWithImage('lib/assets/jeep-icon.png', color);
-
-//     updatedMarkers[alightingMarkerId] = Marker(
-//       markerId: alightingMarkerId,
-//       position: segment.alightingPoint,
-//       icon: alightingIcon,
-//       infoWindow: InfoWindow(
-//         title: "Drop off location",
-//         snippet:
-//             "Landmark: ${await searchService.getAddressFromLatLngV2(segment.alightingPoint)}",
-//       ),
-//     );
-
-//     updatedPolylines.add(Polyline(
-//       polylineId: PolylineId("route_${segment.route.name}"),
-//       points: segment.pathSegment,
-//       color: color,
-//       width: 5,
-//       geodesic: false,
-//     ));
-
-//     colorIndex++;
-//   }
-
   for (final segment in journeyPlan.vehicleSegments) {
     Color color;
     String iconAsset;
@@ -393,6 +309,20 @@ Future<void> updateMarkers({
     } else {
       displayPath = segment.pathSegment;
     }
+
+    //   Future<void> _startNavigation() async {
+    // _alarmManager.startMonitoring();
+    // await _alarmManager.initialize();
+    // List<Polyline> snappedPolylines = [];
+    // for (var polyline in polylines) {
+    //   List<LatLng> snappedPoints = await snapToRoads(polyline.points);
+    //   snappedPolylines.add(Polyline(
+    //     polylineId: polyline.polylineId,
+    //     points: snappedPoints,
+    //     color: polyline.color,
+    //     width: polyline.width,
+    //   ));
+    // }
 
     updatedPolylines.add(Polyline(
       polylineId: PolylineId("route_${segment.route.name}"),

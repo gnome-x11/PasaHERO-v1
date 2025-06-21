@@ -13,6 +13,6 @@ class RouteSegment {
     required this.route,
     required this.boardingPoint,
     required this.alightingPoint,
-    required this.pathSegment,
+    required this.pathSegment, required String vehicleType,
   });
 }
