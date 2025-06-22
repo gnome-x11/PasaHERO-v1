@@ -440,7 +440,7 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemCount: combinedList.length +
-                      (_searchHistory.isNotEmpty ? 0 : 1) +
+                      (_searchHistory.isNotEmpty ? 1 : 0) +
                       (predictions.isNotEmpty ? 1 : 0),
                   itemBuilder: (context, index) {
                     int headerOffset = 0;
@@ -1218,7 +1218,7 @@ class _HomePageState extends State<HomePage> {
             buildingsEnabled: false,
             compassEnabled: true,
             trafficEnabled: trafficEnabled,
-            mapType: MapType.normal,
+            mapType: MapType.terrain,
             tiltGesturesEnabled: true,
             myLocationEnabled: true,
             myLocationButtonEnabled: false,

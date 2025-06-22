@@ -1,6 +1,5 @@
 //helpers
 
-import 'package:transit/utils/journey_planner.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -9,9 +8,8 @@ import 'package:transit/helpers/route_data.dart';
 List<RouteData> routes = [];
 
 Future<void> loadGPX() async {
-  routes.clear(); // Prevent duplicates
   List<String> gpxFiles = [
-     'assets/gpx/P_MUNISIPYO_TRICYCLE_TERMINAL.gpx',
+    'assets/gpx/P_MUNISIPYO_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_ALABANG_TO_MUNTINLUPA_LAS_PINAS_BOUNDARY_NORTHBOUND.gpx',
     'assets/gpx/P_ALABANG_TO_SUCAT_BAYBAYIN_NORTHBOUND_SOUTHBOUND.gpx',
     'assets/gpx/P_ALABANG_TO_SUCAT_KALIWA_NORTHBOUND.gpx',
@@ -19,17 +17,17 @@ Future<void> loadGPX() async {
     'assets/gpx/P_ALABANG_TO_SUCAT_KANAN_NORTHBOUND.gpx',
     'assets/gpx/P_ALABANG_TO_SUCAT_KANAN_SOUTHBOUND.gpx',
     'assets/gpx/P_ALABANG_TO_TUNASAN_SOUTHBOUND.gpx',
+    'assets/gpx/P_TUNASAN_TO_ALABANG_NORTHBOUND.gpx',
     'assets/gpx/P_BAYAN_TO_MAIN_GATE_NORTHBOUND_SOUTHBOUND.gpx',
 
     'assets/gpx/P_BAYANAN2_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_BIAZON_ROAD_TO_MUNTINLUPA_LASPINAS_BOUNDARY_NORTHBOUND.gpx',
-    'assets/gpx/P_BRUGER_TRICYCLE_TERMINAL.gpx',
+    //'assets/gpx/P_BRUGER_TRICYCLE_TERMINAL.gpx',
 
     'assets/gpx/P_BAYANAN_TRICYCLE_TERMINAL.gpx',
     //'assets/gpx/P_MAIN_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_MUNTINLUPA_LAS_PINAS_BOUNDARY_TO_SOUTHVILLE3_SOUTHBOUND.gpx',
     'assets/gpx/P_MUNTINLUPA_TO_LASPINAS_BOUNDARY_TO_ALABANG_SOUTHBOUND.gpx',
-    'assets/gpx/P_TUNASAN_TO_ALABANG_NORTHBOUND.gpx',
     'assets/gpx/P_NBP_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_MAINGATE_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_NOVO_TRICYCLE_TERMINAL.gpx',
@@ -66,7 +64,6 @@ Future<void> loadGPX() async {
       print("Error loading GPX $file: $e");
     }
   }
-  buildSpatialIndex(); // REBUILD after loading
 }
 
 String parseDirectionFromFileName(String fileName) {
