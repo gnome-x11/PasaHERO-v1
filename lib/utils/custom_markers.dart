@@ -167,7 +167,7 @@ Future<void> updateMarkers({
       findNearestRoute(destinationPoint, preferredDirection: travelDirection);
 
   // Show loading while calculating
-  showDialog(
+ showDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) {
@@ -250,6 +250,43 @@ Future<void> updateMarkers({
   int colorIndex = 0;
 
   for (final segment in journeyPlan.vehicleSegments) {
+    if (segment.route.vehicleType == 'tricycle') {
+      double tricycleDistance = pathLength(segment.pathSegment);
+      if (tricycleDistance < 10) {
+        continue; // skip this segment and proceed to next
+      }
+    }
+
+    if (segment.route.vehicleType == 'jeep') {
+      double tricycleDistance = pathLength(segment.pathSegment);
+      if (tricycleDistance < 10) {
+        continue; // skip this segment and proceed to next
+      }
+    }
+
+    double distance = calculateDistance(startLocationPoint, destinationPoint);
+    if (distance <= 200) {
+      // Adjust the threshold as you like
+      final walkPath =
+          await getWalkingRoute(startLocationPoint, destinationPoint);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Route is walking distance: ${distance.toStringAsFixed(0)} meters only"),
+        backgroundColor: Colors.orange,
+      ));
+
+      updatedPolylines.add(Polyline(
+        polylineId: PolylineId('walk_only'),
+        points: walkPath ?? [],
+        color: Colors.orange,
+        width: 8,
+        patterns: [PatternItem.dot, PatternItem.gap(15)],
+      ));
+
+      onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
+      return;
+    }
+
     Color color;
     String iconAsset;
     String markerText;
@@ -310,19 +347,6 @@ Future<void> updateMarkers({
       displayPath = segment.pathSegment;
     }
 
-    //   Future<void> _startNavigation() async {
-    // _alarmManager.startMonitoring();
-    // await _alarmManager.initialize();
-    // List<Polyline> snappedPolylines = [];
-    // for (var polyline in polylines) {
-    //   List<LatLng> snappedPoints = await snapToRoads(polyline.points);
-    //   snappedPolylines.add(Polyline(
-    //     polylineId: polyline.polylineId,
-    //     points: snappedPoints,
-    //     color: polyline.color,
-    //     width: polyline.width,
-    //   ));
-    // }
 
     updatedPolylines.add(Polyline(
       polylineId: PolylineId("route_${segment.route.name}"),

@@ -1,10 +1,11 @@
 //models
 
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:transit/models/nearest_point.dart';
 
 class TransferPoint {
-  final LatLng startTransfer;
-  final LatLng endTransfer;
+  final NearestPoint startTransfer;
+  final NearestPoint endTransfer;
   final double distance;
 
   TransferPoint({

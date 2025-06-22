@@ -1,3 +1,4 @@
+// ========== IMPORTS ==========
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import '../models/transfer_point.dart';
 import '../models/nearest_point.dart';
 import '../models/journey_plan.dart';
 
-// ========== Spatial Indexing System ==========
+// ========== SPATIAL INDEXING SYSTEM ==========
 class RouteSpatialIndex {
   final Map<String, List<IndexedPoint>> _grid = {};
   static const double _cellSize = 0.002; // ~200m at equator
@@ -58,7 +59,7 @@ void buildSpatialIndex() {
   }
 }
 
-// ========== Distance Calculations ==========
+// ========== DISTANCE CALCULATIONS ==========
 const double _earthRadius = 6371000; // meters
 
 double calculateDistance(LatLng p1, LatLng p2) {
@@ -74,7 +75,7 @@ double calculateDistance(LatLng p1, LatLng p2) {
   return _earthRadius * 2 * atan2(sqrt(a), sqrt(1 - a));
 }
 
-// ========== Optimized Search Functions ==========
+// ========== OPTIMIZED SEARCH FUNCTIONS ==========
 Map<String, dynamic> findNearestJeepneyStopWithIndex(
   LatLng userLocation, {
   RouteData? route,
@@ -217,13 +218,12 @@ int _findNearestIndex(LatLng target, List<LatLng> path) {
   return nearestIndex;
 }
 
-// ========== Transfer Point Optimization ==========
+// ========== TRANSFER POINT OPTIMIZATION ==========
 List<TransferPoint> findTransferPoints(RouteData route1, RouteData route2) {
   final bool isTricycleTransfer =
       route1.vehicleType == 'tricycle' || route2.vehicleType == 'tricycle';
 
-      final double maxTransferDistance = isTricycleTransfer ? 200 : 75;
-
+  final double maxTransferDistance = isTricycleTransfer ? 220 : 75;
 
   final transfers = <TransferPoint>[];
 
@@ -236,7 +236,7 @@ List<TransferPoint> findTransferPoints(RouteData route1, RouteData route2) {
   }
 
   TransferPoint? bestTransfer;
-  final step = max(1, route1.path.length ~/ 25);
+  final step = max(1, route1.path.length ~/ 20);
 
   for (int i = 0; i < route1.path.length; i += step) {
     final point1 = route1.path[i];
@@ -246,8 +246,8 @@ List<TransferPoint> findTransferPoints(RouteData route1, RouteData route2) {
     if (distance <= maxTransferDistance) {
       if (bestTransfer == null || distance < bestTransfer.distance) {
         bestTransfer = TransferPoint(
-          startTransfer: point1,
-          endTransfer: nearestOnRoute2.point,
+          startTransfer: NearestPoint(point1, route1.path.indexOf(point1)),
+          endTransfer: nearestOnRoute2,
           distance: distance,
         );
       }
@@ -268,8 +268,8 @@ List<TransferPoint> _findTricycleToTricycleTransfers(
 
     if (distance <= maxDistance) {
       transfers.add(TransferPoint(
-        startTransfer: point,
-        endTransfer: nearest.point,
+        startTransfer: NearestPoint(point, trike1.path.indexOf(point)),
+        endTransfer: nearest,
         distance: distance,
       ));
     }
@@ -291,7 +291,7 @@ bool areRoutesOverlapping(RouteData r1, RouteData r2, {double threshold = 20}) {
   return false;
 }
 
-// ========== Journey Planning Optimization ==========
+// ========== JOURNEY PLANNING OPTIMIZATION ==========
 Future<JourneyPlan?> calculateJourneyPlan({
   required LatLng startPoint,
   required LatLng endPoint,
@@ -333,18 +333,18 @@ Future<JourneyPlan?> calculateJourneyPlan({
       final segment1 = createRouteSegment(
         route: startRoute,
         startPoint: findNearestPointOnRoute(startPoint, startRoute),
-        endPoint: findNearestPointOnRoute(t1.startTransfer, startRoute),
+        endPoint: findNearestPointOnRoute(t1.startTransfer.point, startRoute),
       );
 
       final segment2 = createRouteSegment(
         route: jeepRoute,
-        startPoint: findNearestPointOnRoute(t1.endTransfer, jeepRoute),
-        endPoint: findNearestPointOnRoute(t2.startTransfer, jeepRoute),
+        startPoint: findNearestPointOnRoute(t1.endTransfer.point, jeepRoute),
+        endPoint: findNearestPointOnRoute(t2.startTransfer.point, jeepRoute),
       );
 
       final segment3 = createRouteSegment(
         route: destRoute,
-        startPoint: findNearestPointOnRoute(t2.endTransfer, destRoute),
+        startPoint: findNearestPointOnRoute(t2.endTransfer.point, destRoute),
         endPoint: findNearestPointOnRoute(endPoint, destRoute),
       );
 
@@ -424,24 +424,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
       vehicleSegments,
       walkingSegments,
     );
-  }
-
-  // Try direct route first
-  if (startRoute.vehicleType == "tricycle" &&
-      destRoute.vehicleType == 'jeep' &&
-      startRoute != destRoute) {
-    final fourPlan = findTransferPoints(startRoute, destRoute);
-    if (fourPlan.isNotEmpty) {
-      return buildFourRoutes(
-        startPoint,
-        endPoint,
-        startRoute,
-        destRoute,
-        fourPlan.first,
-        vehicleSegments,
-        walkingSegments,
-      );
-    }
   }
 
   // Intermediate route handling
@@ -537,12 +519,12 @@ Future<JourneyPlan?> _buildTransferJourney(
   final segment1 = createRouteSegment(
     route: startRoute,
     startPoint: findNearestPointOnRoute(startPoint, startRoute),
-    endPoint: findNearestPointOnRoute(transfer.startTransfer, startRoute),
+    endPoint: findNearestPointOnRoute(transfer.startTransfer.point, startRoute),
   );
 
   final segment2 = createRouteSegment(
     route: destRoute,
-    startPoint: findNearestPointOnRoute(transfer.endTransfer, destRoute),
+    startPoint: findNearestPointOnRoute(transfer.endTransfer.point, destRoute),
     endPoint: findNearestPointOnRoute(endPoint, destRoute),
   );
 
@@ -591,18 +573,18 @@ Future<JourneyPlan?> buildIntermediateJourney(
   final segment1 = createRouteSegment(
     route: startRoute,
     startPoint: findNearestPointOnRoute(startPoint, startRoute),
-    endPoint: findNearestPointOnRoute(t1.startTransfer, startRoute),
+    endPoint: findNearestPointOnRoute(t1.startTransfer.point, startRoute),
   );
 
   final segment2 = createRouteSegment(
     route: intermediateRoute,
-    startPoint: findNearestPointOnRoute(t1.endTransfer, intermediateRoute),
-    endPoint: findNearestPointOnRoute(t2.startTransfer, intermediateRoute),
+    startPoint: findNearestPointOnRoute(t1.endTransfer.point, intermediateRoute),
+    endPoint: findNearestPointOnRoute(t2.startTransfer.point, intermediateRoute),
   );
 
   final segment3 = createRouteSegment(
     route: destRoute,
-    startPoint: findNearestPointOnRoute(t2.endTransfer, destRoute),
+    startPoint: findNearestPointOnRoute(t2.endTransfer.point, destRoute),
     endPoint: findNearestPointOnRoute(endPoint, destRoute),
   );
 
@@ -656,24 +638,24 @@ Future<JourneyPlan?> buildFourRoutes(
   final segment1 = createRouteSegment(
     route: startRoute,
     startPoint: findNearestPointOnRoute(startPoint, startRoute),
-    endPoint: findNearestPointOnRoute(t1.startTransfer, startRoute),
+    endPoint: findNearestPointOnRoute(t1.startTransfer.point, startRoute),
   );
 
   final segment2 = createRouteSegment(
     route: intermediateRoute,
-    startPoint: findNearestPointOnRoute(t1.endTransfer, intermediateRoute),
-    endPoint: findNearestPointOnRoute(t2.startTransfer, intermediateRoute),
+    startPoint: findNearestPointOnRoute(t1.endTransfer.point, intermediateRoute),
+    endPoint: findNearestPointOnRoute(t2.startTransfer.point, intermediateRoute),
   );
 
   final segment3 = createRouteSegment(
     route: intermediateRoute,
-    startPoint: findNearestPointOnRoute(t2.endTransfer, intermediateRoute),
-    endPoint: findNearestPointOnRoute(t3.startTransfer, intermediateRoute),
+    startPoint: findNearestPointOnRoute(t2.endTransfer.point, intermediateRoute),
+    endPoint: findNearestPointOnRoute(t3.startTransfer.point, intermediateRoute),
   );
 
   final segment4 = createRouteSegment(
       route: destRoute,
-      startPoint: findNearestPointOnRoute(t3.endTransfer, destRoute),
+      startPoint: findNearestPointOnRoute(t3.endTransfer.point, destRoute),
       endPoint: findNearestPointOnRoute(endPoint, destRoute));
 
   if (segment1 == null ||
@@ -728,7 +710,10 @@ RouteData? findBestIntermediateRoute(
     }
   }
 
-  candidates.sort((a, b,) =>
+  candidates.sort((
+    a,
+    b,
+  ) =>
       a['distance'].compareTo(b['distance']));
   return candidates.isNotEmpty ? candidates.first['route'] as RouteData : null;
 }
@@ -744,14 +729,14 @@ RouteData? findSingleRoute(LatLng start, LatLng end) {
     final endDist = calculateDistance(end, endNearest.point);
 
     if (r.vehicleType == 'tricycle') {
-      if (startDist <= 250 && endDist <= 250) {
+      if (startDist <= 200 && endDist <= 200) {
         candidates.add({
           'route': r,
           'score': startDist + endDist,
         });
       }
     } else {
-      if (startDist > 400 || endDist > 400) continue;
+      if (startDist > 80 || endDist > 80) continue;
       bool isValidDirection = r.direction == 'bidirectional' ||
           (r.direction == 'southbound' &&
               startNearest.index <= endNearest.index) ||
@@ -788,7 +773,7 @@ List<LatLng> interpolatePath(LatLng start, LatLng end, {int segments = 10}) {
   );
 }
 
-// ========== Segment Creation ==========
+// ========== SEGMENT CREATION ==========
 RouteSegment? createRouteSegment({
   required RouteData route,
   required NearestPoint startPoint,
@@ -824,23 +809,4 @@ RouteSegment? createRouteSegment({
     debugPrint("Segment creation error: $e");
     return null;
   }
-}
-
-// ========== UI Helpers ==========
-void showLoadingDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return const AlertDialog(
-        content: Row(
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(width: 20),
-            Text("Calculating route..."),
-          ],
-        ),
-      );
-    },
-  );
 }
