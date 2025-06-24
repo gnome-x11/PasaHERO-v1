@@ -749,7 +749,7 @@ class _HomePageState extends State<HomePage> {
             duration: duration));
         journeySteps.add(JourneyStep(
           type: 'tricycle',
-          price: 13,
+          price: 12,
           duration: duration,
           distance: distanceRemaining,
         ));

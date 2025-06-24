@@ -21,7 +21,7 @@ Future<void> loadGPX() async {
     'assets/gpx/P_BAYANAN2_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_BIAZON_ROAD_TO_MUNTINLUPA_LASPINAS_BOUNDARY_NORTHBOUND.gpx',
     'assets/gpx/P_MUNISIPYO_TRICYCLE_TERMINAL.gpx',
-    //'assets/gpx/P_KATARUNGAN_TRICYCLE_TERMINAL.gpx',
+    'assets/gpx/P_KATARUNGAN_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_BAYANAN_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_MAIN_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_MUNTINLUPA_LAS_PINAS_BOUNDARY_TO_SOUTHVILLE3_SOUTHBOUND.gpx',

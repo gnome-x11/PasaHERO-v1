@@ -218,6 +218,8 @@ int _findNearestIndex(LatLng target, List<LatLng> path) {
   return nearestIndex;
 }
 
+
+
 // ========== TRANSFER POINT OPTIMIZATION ==========
 List<TransferPoint> findTransferPoints(RouteData route1, RouteData route2) {
   final bool isTricycleTransfer =
@@ -301,8 +303,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
   List<RouteSegment> vehicleSegments = []; // Changed from jeepSegments
   final walkingSegments = <List<LatLng>>[];
 
-  debugPrint(
-      "Trying transfer between ${startRoute.name} and ${destRoute.name}");
 
   if (startRoute.vehicleType == 'tricycle' &&
       destRoute.vehicleType == 'tricycle' &&
@@ -361,7 +361,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
         final walkResults = await Future.wait(walkFutures);
         final walkSegments = walkResults.whereType<List<LatLng>>().toList();
 
-        // ✅ Successful fallback path found
         return JourneyPlan(
           vehicleSegments: [segment1, segment2, segment3],
           walkingSegments: walkSegments,
@@ -373,22 +372,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
     }
   }
 
-  // 3. Handle tricycle-to-tricycle transfers
-  if (startRoute.vehicleType == 'tricycle' &&
-      destRoute.vehicleType == 'tricycle') {
-    final transfers = findTransferPoints(startRoute, destRoute);
-    if (transfers.isNotEmpty) {
-      return _buildTransferJourney(
-        startPoint,
-        endPoint,
-        startRoute,
-        destRoute,
-        transfers.first,
-        vehicleSegments,
-        walkingSegments,
-      );
-    }
-  }
 
   final directRoute = findSingleRoute(startPoint, endPoint);
   if (directRoute != null) {
@@ -425,6 +408,23 @@ Future<JourneyPlan?> calculateJourneyPlan({
       walkingSegments,
     );
   }
+
+  if (startRoute.vehicleType == 'tricycle' &&
+      destRoute.vehicleType == 'jeep' &&
+      startRoute != destRoute){
+          final transfers = findTransferPoints(startRoute, destRoute);
+          if (transfers.isNotEmpty) {
+            return buildFourRoutes(
+              startPoint,
+              endPoint,
+              startRoute,
+              destRoute,
+              transfers.first,
+              vehicleSegments,
+              walkingSegments,
+            );
+          }
+      }
 
   // Intermediate route handling
   return buildIntermediateJourney(
