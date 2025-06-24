@@ -16,7 +16,7 @@ class RouteSpatialIndex {
   static const double _cellSize = 0.002; // ~200m at equator
 
   void addRoute(RouteData route) {
-    final step = route.vehicleType == 'tricycle' ? 1 : 1;
+    final step = route.vehicleType == 'tricycle' ? 1 : 2;
     for (int i = 0; i < route.path.length; i += step) {
       final point = route.path[i];
       final latIndex = (point.latitude / _cellSize).floor();
@@ -506,6 +506,8 @@ Future<JourneyPlan?> _buildSingleRouteJourney(
     walkingSegments: walkingSegments,
   );
 }
+
+
 
 Future<JourneyPlan?> _buildTransferJourney(
   LatLng startPoint,

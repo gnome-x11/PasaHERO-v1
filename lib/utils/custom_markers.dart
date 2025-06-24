@@ -167,7 +167,7 @@ Future<void> updateMarkers({
       findNearestRoute(destinationPoint, preferredDirection: travelDirection);
 
   // Show loading while calculating
- showDialog(
+  showDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) {
@@ -196,6 +196,7 @@ Future<void> updateMarkers({
   );
 
   if (startRoute == null || destRoute == null) {
+    Navigator.of(context).pop;
     onUpdate(updatedMarkers.values.toSet(), updatedPolylines.toSet());
     return;
   }
@@ -271,7 +272,8 @@ Future<void> updateMarkers({
           await getWalkingRoute(startLocationPoint, destinationPoint);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Route is walking distance: ${distance.toStringAsFixed(0)} meters only"),
+        content: Text(
+            "Route is walking distance: ${distance.toStringAsFixed(0)} meters only"),
         backgroundColor: Colors.orange,
       ));
 
@@ -346,7 +348,6 @@ Future<void> updateMarkers({
     } else {
       displayPath = segment.pathSegment;
     }
-
 
     updatedPolylines.add(Polyline(
       polylineId: PolylineId("route_${segment.route.name}"),

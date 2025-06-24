@@ -42,7 +42,6 @@ class JourneySummary extends StatelessWidget {
     final usedIcons = <String>{};
 
     final totalPrice =
-
         journeySteps.fold<double>(0, (sum, step) => sum + step.price);
 print('Total price: $totalPrice');
     for (final step in journeySteps) {
