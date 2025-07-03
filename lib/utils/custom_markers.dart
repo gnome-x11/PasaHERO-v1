@@ -247,7 +247,7 @@ Future<void> updateMarkers({
     }
   }
 
-  final routeColors = [Colors.blue, Colors.deepPurpleAccent, Colors.pink, Colors.white];
+  final routeColors = [Colors.blue, Colors.deepPurpleAccent, Colors.pink, Colors.yellowAccent];
   int colorIndex = 0;
 
   for (final segment in journeyPlan.vehicleSegments) {
