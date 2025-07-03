@@ -1218,7 +1218,7 @@ class _HomePageState extends State<HomePage> {
             buildingsEnabled: false,
             compassEnabled: true,
             trafficEnabled: trafficEnabled,
-            mapType: MapType.terrain,
+            mapType: MapType.normal,
             tiltGesturesEnabled: true,
             myLocationEnabled: true,
             myLocationButtonEnabled: false,

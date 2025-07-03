@@ -91,7 +91,10 @@ class RouteData {
       return 'ACMSTODA | Alabang';
     } else if (cleanName.contains('KATARUNGAN TRICYCLE TERMINAL')) {
       return 'JUSVILTODA | Katarungan Village';
+    } else if (cleanName.contains('BAYAN TO MAIN')) {
+      return 'Libreng Sakay For Plmun and MNHS-Main Students';
     }
+
 
     // Format remaining names with proper capitalization
     return cleanName.split(' ').map((word) {

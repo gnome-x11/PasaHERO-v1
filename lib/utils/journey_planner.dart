@@ -13,10 +13,10 @@ import '../models/journey_plan.dart';
 // ========== SPATIAL INDEXING SYSTEM ==========
 class RouteSpatialIndex {
   final Map<String, List<IndexedPoint>> _grid = {};
-  static const double _cellSize = 0.002; // ~200m at equator
+  static const double _cellSize = 0.005; // ~200m at equator
 
   void addRoute(RouteData route) {
-    final step = route.vehicleType == 'tricycle' ? 1 : 2;
+    final step = route.vehicleType == 'tricycle' ? 2 : 3;
     for (int i = 0; i < route.path.length; i += step) {
       final point = route.path[i];
       final latIndex = (point.latitude / _cellSize).floor();
@@ -165,7 +165,7 @@ RouteData? findNearestRoute(LatLng point, {String? preferredDirection}) {
     final distance = calculateDistance(point, nearest.point);
 
     // Prioritize tricycles within 200m
-    if (route.vehicleType == 'tricycle' && distance <= 200) {
+    if (route.vehicleType == 'tricycle' && distance <= 100) {
       candidates.add(route);
     }
 
@@ -225,7 +225,7 @@ List<TransferPoint> findTransferPoints(RouteData route1, RouteData route2) {
   final bool isTricycleTransfer =
       route1.vehicleType == 'tricycle' || route2.vehicleType == 'tricycle';
 
-  final double maxTransferDistance = isTricycleTransfer ? 220 : 75;
+  final double maxTransferDistance = isTricycleTransfer ? 500 : 500;
 
   final transfers = <TransferPoint>[];
 
@@ -233,12 +233,12 @@ List<TransferPoint> findTransferPoints(RouteData route1, RouteData route2) {
     return _findTricycleToTricycleTransfers(
         route1, route2, maxTransferDistance);
   }
-  if (areRoutesOverlapping(route1, route2, threshold: 80)) {
+  if (areRoutesOverlapping(route1, route2, threshold: 200)) {
     return [];
   }
 
   TransferPoint? bestTransfer;
-  final step = max(1, route1.path.length ~/ 20);
+  final step = max(1, route1.path.length ~/ 100);
 
   for (int i = 0; i < route1.path.length; i += step) {
     final point1 = route1.path[i];
@@ -280,11 +280,11 @@ List<TransferPoint> _findTricycleToTricycleTransfers(
   return transfers;
 }
 
-bool areRoutesOverlapping(RouteData r1, RouteData r2, {double threshold = 20}) {
+bool areRoutesOverlapping(RouteData r1, RouteData r2, {double threshold = 50}) {
   int overlapCount = 0;
-  const int overlapLimit = 10;
+  const int overlapLimit = 50;
 
-  for (int i = 0; i < r1.path.length; i += 3) {
+  for (int i = 0; i < r1.path.length; i += 4) {
     final nearest = findNearestPointOnRoute(r1.path[i], r2);
     if (calculateDistance(r1.path[i], nearest.point) < threshold) {
       if (++overlapCount >= overlapLimit) return true;
@@ -678,9 +678,6 @@ Future<JourneyPlan?> buildFourRoutes(
   ];
 
   final walkResults = await Future.wait(walkFutures);
-
-  debugPrint(
-      "Trying transfer between ${startRoute.name} and ${destRoute.name}");
 
   if (walkResults[0] != null) walkingSegments.add(walkResults[0]!);
   if (walkResults[1] != null) walkingSegments.add(walkResults[1]!);

@@ -247,7 +247,7 @@ Future<void> updateMarkers({
     }
   }
 
-  final routeColors = [Colors.blue, Colors.deepPurpleAccent, Colors.pink];
+  final routeColors = [Colors.blue, Colors.deepPurpleAccent, Colors.pink, Colors.white];
   int colorIndex = 0;
 
   for (final segment in journeyPlan.vehicleSegments) {
@@ -266,7 +266,7 @@ Future<void> updateMarkers({
     }
 
     double distance = calculateDistance(startLocationPoint, destinationPoint);
-    if (distance <= 200) {
+    if (distance <= 400) {
       // Adjust the threshold as you like
       final walkPath =
           await getWalkingRoute(startLocationPoint, destinationPoint);

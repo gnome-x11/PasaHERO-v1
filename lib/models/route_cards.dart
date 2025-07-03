@@ -362,7 +362,7 @@ class JeepCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   _buildDetailRow("Get Off", alighting),
                   const SizedBox(height: 6),
-                  _buildDetailRow("Distance", "$km m"),
+                  _buildDetailRow("Distance", "$km km"),
                   const SizedBox(height: 6),
                   _buildDetailRow("Duration", "${duration.toString()} minutes"),
                 ],
