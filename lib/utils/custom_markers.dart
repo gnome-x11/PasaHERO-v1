@@ -10,7 +10,7 @@ import 'package:transit/models/search_helper.dart' as searchService;
 import '../helpers/loadgpx_files.dart';
 import '../utils/journey_planner.dart';
 
-//for image icon
+
 Future<BitmapDescriptor> createCustomMarkerWithImage(
     String assetPath, Color bgColor) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
@@ -19,14 +19,12 @@ Future<BitmapDescriptor> createCustomMarkerWithImage(
   const double height = 60.0;
   final Paint paint = Paint()..color = bgColor;
 
-  // Draw background rounded rectangle
   final RRect rect = RRect.fromRectAndRadius(
     Rect.fromLTWH(0, 0, width, height),
     const Radius.circular(50),
   );
   canvas.drawRRect(rect, paint);
 
-  // Draw triangle pointer
   final Path trianglePath = Path()
     ..moveTo(width / 2 - 15, height)
     ..lineTo(width / 2 + 15, height)
@@ -34,7 +32,6 @@ Future<BitmapDescriptor> createCustomMarkerWithImage(
     ..close();
   canvas.drawPath(trianglePath, paint);
 
-  // Load image
   final ByteData data = await rootBundle.load(assetPath);
   final codec = await ui.instantiateImageCodec(
     data.buffer.asUint8List(),
@@ -44,12 +41,10 @@ Future<BitmapDescriptor> createCustomMarkerWithImage(
   final frame = await codec.getNextFrame();
   final ui.Image iconImage = frame.image;
 
-  // Draw image centered
   final double imgX = (width - 50) / 2;
   final double imgY = (height - 50) / 2;
   canvas.drawImage(iconImage, Offset(imgX, imgY), Paint());
 
-  // Finalize image
   final img = await pictureRecorder.endRecording().toImage(
         width.toInt(),
         (height + 20).toInt(),
@@ -60,7 +55,6 @@ Future<BitmapDescriptor> createCustomMarkerWithImage(
   return BitmapDescriptor.fromBytes(uint8List);
 }
 
-//for plain text icon controller
 Future<BitmapDescriptor> createCustomMarker(String text, Color bgColor) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
@@ -166,7 +160,6 @@ Future<void> updateMarkers({
   final destRoute =
       findNearestRoute(destinationPoint, preferredDirection: travelDirection);
 
-  // Show loading while calculating
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -238,7 +231,6 @@ Future<void> updateMarkers({
         vehicleSegments: [second],
       );
 
-      // replace the original journeyPlan with filtered one
       journeyPlan.vehicleSegments.clear();
       journeyPlan.vehicleSegments.addAll(filteredPlan.vehicleSegments);
 
@@ -254,20 +246,19 @@ Future<void> updateMarkers({
     if (segment.route.vehicleType == 'tricycle') {
       double tricycleDistance = pathLength(segment.pathSegment);
       if (tricycleDistance < 10) {
-        continue; // skip this segment and proceed to next
+        continue;
       }
     }
 
     if (segment.route.vehicleType == 'jeep') {
       double tricycleDistance = pathLength(segment.pathSegment);
       if (tricycleDistance < 10) {
-        continue; // skip this segment and proceed to next
+        continue;
       }
     }
 
     double distance = calculateDistance(startLocationPoint, destinationPoint);
     if (distance <= 400) {
-      // Adjust the threshold as you like
       final walkPath =
           await getWalkingRoute(startLocationPoint, destinationPoint);
 
@@ -294,7 +285,7 @@ Future<void> updateMarkers({
     String markerText;
 
     if (segment.route.vehicleType == 'tricycle') {
-      color = Colors.green; // Distinct color for tricycles
+      color = Colors.green;
       iconAsset = 'lib/assets/tricycle-icon.png';
       markerText = "Ride this tricycle";
     } else {

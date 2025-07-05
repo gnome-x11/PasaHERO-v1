@@ -20,8 +20,8 @@ class SearchService {
   }
 
   Future<void> saveSearchHistory(List<CustomPrediction> searchHistory) async {
+
     final prefs = await SharedPreferences.getInstance();
-    // Modified: Deduplicate and limit history while preserving order
     final uniqueHistory =
         searchHistory.reversed.toSet().toList().reversed.take(5).toList();
 
@@ -80,7 +80,6 @@ class SearchService {
           ));
         }
 
-        // Original current location insertion logic preserved
         if (currentLocation != null) {
           predictions.insert(
             1,
@@ -207,8 +206,6 @@ class SearchService {
   }
 }
 
-
-  // New feature: Optional nearby search (won't affect existing code)
   Future<List<CustomPrediction>> findNearbyPlaces(
       LatLng location, String type) async {
     try {

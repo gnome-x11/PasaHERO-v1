@@ -1,4 +1,4 @@
-// ========== IMPORTS ==========
+
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -10,10 +10,9 @@ import '../models/transfer_point.dart';
 import '../models/nearest_point.dart';
 import '../models/journey_plan.dart';
 
-// ========== SPATIAL INDEXING SYSTEM ==========
 class RouteSpatialIndex {
   final Map<String, List<IndexedPoint>> _grid = {};
-  static const double _cellSize = 0.005; // ~200m at equator
+  static const double _cellSize = 0.005;
 
   void addRoute(RouteData route) {
     final step = route.vehicleType == 'tricycle' ? 2 : 3;
@@ -52,15 +51,13 @@ class IndexedPoint {
 
 final spatialIndex = RouteSpatialIndex();
 
-// Initialize this after loading routes
 void buildSpatialIndex() {
   for (final route in routes) {
     spatialIndex.addRoute(route);
   }
 }
 
-// ========== DISTANCE CALCULATIONS ==========
-const double _earthRadius = 6371000; // meters
+const double _earthRadius = 6371000;
 
 double calculateDistance(LatLng p1, LatLng p2) {
   if (p1 == p2) return 0;
@@ -75,7 +72,7 @@ double calculateDistance(LatLng p1, LatLng p2) {
   return _earthRadius * 2 * atan2(sqrt(a), sqrt(1 - a));
 }
 
-// ========== OPTIMIZED SEARCH FUNCTIONS ==========
+
 Map<String, dynamic> findNearestJeepneyStopWithIndex(
   LatLng userLocation, {
   RouteData? route,
@@ -106,7 +103,6 @@ Map<String, dynamic> findNearestJeepneyStopWithIndex(
     }
   }
 
-  // Fallback to linear search if spatial index fails
   if (nearestPoint == null) {
     return _linearNearestSearch(userLocation,
         route: route, direction: direction);
@@ -164,7 +160,6 @@ RouteData? findNearestRoute(LatLng point, {String? preferredDirection}) {
     final nearest = findNearestPointOnRoute(point, route);
     final distance = calculateDistance(point, nearest.point);
 
-    // Prioritize tricycles within 200m
     if (route.vehicleType == 'tricycle' && distance <= 100) {
       candidates.add(route);
     }
@@ -175,7 +170,6 @@ RouteData? findNearestRoute(LatLng point, {String? preferredDirection}) {
     }
   }
 
-  // Return random tricycle if multiple available
   if (candidates.isNotEmpty) {
     return candidates[Random().nextInt(candidates.length)];
   }
@@ -184,23 +178,19 @@ RouteData? findNearestRoute(LatLng point, {String? preferredDirection}) {
 }
 
 NearestPoint findNearestPointOnRoute(LatLng target, RouteData route) {
-  // Use cache if available
   if (route.indexCache.containsKey(target)) {
     return route.indexCache[target]!;
   }
 
   int nearestIndex;
-
-  // Tricycles: ignore direction, just find closest point
   if (route.vehicleType == 'tricycle') {
     nearestIndex = _findNearestIndex(target, route.path);
   } else {
-    // Jeepneys or other vehicles might need directional-aware search in future
     nearestIndex = _findNearestIndex(target, route.path);
   }
 
   final result = NearestPoint(route.path[nearestIndex], nearestIndex);
-  route.indexCache[target] = result; // Cache result
+  route.indexCache[target] = result;
   return result;
 }
 
@@ -218,9 +208,6 @@ int _findNearestIndex(LatLng target, List<LatLng> path) {
   return nearestIndex;
 }
 
-
-
-// ========== TRANSFER POINT OPTIMIZATION ==========
 List<TransferPoint> findTransferPoints(RouteData route1, RouteData route2) {
   final bool isTricycleTransfer =
       route1.vehicleType == 'tricycle' || route2.vehicleType == 'tricycle';
@@ -293,16 +280,14 @@ bool areRoutesOverlapping(RouteData r1, RouteData r2, {double threshold = 50}) {
   return false;
 }
 
-// ========== JOURNEY PLANNING OPTIMIZATION ==========
 Future<JourneyPlan?> calculateJourneyPlan({
   required LatLng startPoint,
   required LatLng endPoint,
   required RouteData startRoute,
   required RouteData destRoute,
 }) async {
-  List<RouteSegment> vehicleSegments = []; // Changed from jeepSegments
+  List<RouteSegment> vehicleSegments = [];
   final walkingSegments = <List<LatLng>>[];
-
 
   if (startRoute.vehicleType == 'tricycle' &&
       destRoute.vehicleType == 'tricycle' &&
@@ -327,7 +312,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
     );
   }
 
-  // Same route handling
   if (startRoute == destRoute) {
     return _buildSingleRouteJourney(
       startPoint,
@@ -338,7 +322,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
     );
   }
 
-  // Multi-route handling
   final directTransfers = findTransferPoints(startRoute, destRoute);
   if (directTransfers.isNotEmpty) {
     return _buildTransferJourney(
@@ -352,7 +335,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
     );
   }
 
-  // In calculateJourneyPlan function:
   if (startRoute.vehicleType == 'tricycle' &&
       destRoute.vehicleType == 'jeep') {
     final plan = await calculateTricycleJeepJeepJeepJourney(
@@ -362,8 +344,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
     if (plan != null) return plan;
   }
 
-
-  // Inside your calculateJourneyPlan function:
   if (startRoute.vehicleType == 'tricycle' &&
       destRoute.vehicleType == 'tricycle') {
     final plan = await calculateTricycleJeepJeepTricycleJourney(
@@ -373,7 +353,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
     if (plan != null) return plan;
   }
 
-  // In calculateJourneyPlan function:
   if (startRoute.vehicleType == 'tricycle' &&
       destRoute.vehicleType == 'tricycle') {
     final plan = await calculateTricycleJeepTricycleJourney(
@@ -383,7 +362,6 @@ Future<JourneyPlan?> calculateJourneyPlan({
     if (plan != null) return plan;
   }
 
-  // Intermediate route handling
   return buildIntermediateJourney(
     startPoint,
     endPoint,
@@ -571,7 +549,7 @@ Future<JourneyPlan?> buildIntermediateJourney(
   );
 }
 
-//tricycle -> jeep -> jeep -> jeep
+
 Future<JourneyPlan?> calculateTricycleJeepJeepJeepJourney({
   required LatLng startPoint,
   required LatLng endPoint,
@@ -600,7 +578,6 @@ Future<JourneyPlan?> calculateTricycleJeepJeepJeepJourney({
           final endNearest = findNearestPointOnRoute(endPoint, jeep3);
           if (calculateDistance(endPoint, endNearest.point) > 200) continue;
 
-          // Vehicle Segments
           final segment1 = createRouteSegment(
             route: trikeRoute,
             startPoint: startNearest,
@@ -627,7 +604,6 @@ Future<JourneyPlan?> calculateTricycleJeepJeepJeepJourney({
 
           if (segment1 == null || segment2 == null || segment3 == null || segment4 == null) continue;
 
-          // Walking Segments
           final walkSegments = <List<LatLng>>[];
           final walk1 = await getWalkingRoute(startPoint, segment1.boardingPoint);
           final walk2 = await getWalkingRoute(segment1.alightingPoint, segment2.boardingPoint);
@@ -652,7 +628,6 @@ Future<JourneyPlan?> calculateTricycleJeepJeepJeepJourney({
   return null;
 }
 
-// tricycle -> jeep -> tricycle
 Future<JourneyPlan?> calculateTricycleJeepTricycleJourney({
   required LatLng startPoint,
   required LatLng endPoint,
@@ -661,27 +636,24 @@ Future<JourneyPlan?> calculateTricycleJeepTricycleJourney({
   final jeepneyRoutes = routes.where((r) => r.vehicleType == 'jeep').toList();
 
   for (final startTrike in tricycleRoutes) {
-    // Find boarding point on start tricycle
+
     final startNearest = findNearestPointOnRoute(startPoint, startTrike);
     if (calculateDistance(startPoint, startNearest.point) > 200) continue;
 
     for (final jeepRoute in jeepneyRoutes) {
-      // Find transfer from start tricycle to jeep
+
       final toJeepTransfer = findTransferPoints(startTrike, jeepRoute);
       if (toJeepTransfer.isEmpty) continue;
 
       for (final endTrike in tricycleRoutes) {
         if (endTrike == startTrike) continue;
 
-        // Find transfer from jeep to end tricycle
         final toEndTrikeTransfer = findTransferPoints(jeepRoute, endTrike);
         if (toEndTrikeTransfer.isEmpty) continue;
 
-        // Find alighting point on end tricycle
         final endNearest = findNearestPointOnRoute(endPoint, endTrike);
         if (calculateDistance(endPoint, endNearest.point) > 200) continue;
 
-        // Create vehicle segments
         final segment1 = createRouteSegment(
           route: startTrike,
           startPoint: startNearest,
@@ -702,7 +674,6 @@ Future<JourneyPlan?> calculateTricycleJeepTricycleJourney({
 
         if (segment1 == null || segment2 == null || segment3 == null) continue;
 
-        // Create walking segments
         final walkSegments = <List<LatLng>>[];
         final walk1 = await getWalkingRoute(startPoint, segment1.boardingPoint);
         final walk2 = await getWalkingRoute(segment1.alightingPoint, segment2.boardingPoint);
@@ -724,7 +695,7 @@ Future<JourneyPlan?> calculateTricycleJeepTricycleJourney({
   return null;
 }
 
-//tricycle -> jeep -> jeep -> tricycle
+
 Future<JourneyPlan?> calculateTricycleJeepJeepTricycleJourney({
   required LatLng startPoint,
   required LatLng endPoint,
@@ -754,7 +725,6 @@ Future<JourneyPlan?> calculateTricycleJeepJeepTricycleJourney({
           final endNearest = findNearestPointOnRoute(endPoint, endTrike);
           if (calculateDistance(endPoint, endNearest.point) > 500) continue;
 
-          // Create vehicle segments
           final segment1 = createRouteSegment(
             route: startTrike,
             startPoint: startNearest,
@@ -781,7 +751,6 @@ Future<JourneyPlan?> calculateTricycleJeepJeepTricycleJourney({
 
           if (segment1 == null || segment2 == null || segment3 == null || segment4 == null) continue;
 
-          // Walking Segments
           final walkSegments = <List<LatLng>>[];
           final walk1 = await getWalkingRoute(startPoint, segment1.boardingPoint);
           final walk2 = await getWalkingRoute(segment1.alightingPoint, segment2.boardingPoint);
@@ -805,8 +774,6 @@ Future<JourneyPlan?> calculateTricycleJeepJeepTricycleJourney({
   }
   return null;
 }
-
-
 
 
 RouteData? findBestIntermediateRoute(
@@ -898,11 +865,10 @@ RouteSegment? createRouteSegment({
   try {
     List<LatLng> segment;
 
-    // Handle tricycle routes differently (no direction constraints)
     if (route.vehicleType == 'tricycle') {
       segment = route.path;
     } else {
-      // Existing direction-based logic
+
       if (startPoint.index <= endPoint.index) {
         segment = route.path.sublist(startPoint.index, endPoint.index + 1);
       } else {
