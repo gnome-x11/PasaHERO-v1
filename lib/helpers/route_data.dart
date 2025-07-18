@@ -93,6 +93,10 @@ class RouteData {
       return 'JUSVILTODA | Katarungan Village';
     } else if (cleanName.contains('BAYAN TO MAIN')) {
       return 'Libreng Sakay For Plmun and MNHS-Main Students';
+    } else if (cleanName.contains('BAYAN TRICYCLE TERMINAL ')) {
+      return 'NBPTODA';
+    } else if (cleanName.contains('TYPEB2 TRICYCLE TERMINAL')) {
+      return 'NBPTODA | Type B';
     }
 
 

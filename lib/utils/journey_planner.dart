@@ -15,7 +15,7 @@ class RouteSpatialIndex {
   static const double _cellSize = 0.005;
 
   void addRoute(RouteData route) {
-    final step = route.vehicleType == 'tricycle' ? 2 : 3;
+    final step = route.vehicleType == 'tricycle' ? 1 : 2;
     for (int i = 0; i < route.path.length; i += step) {
       final point = route.path[i];
       final latIndex = (point.latitude / _cellSize).floor();
@@ -347,6 +347,14 @@ Future<JourneyPlan?> calculateJourneyPlan({
   if (startRoute.vehicleType == 'tricycle' &&
       destRoute.vehicleType == 'tricycle') {
     final plan = await calculateTricycleJeepJeepTricycleJourney(
+      startPoint: startPoint,
+      endPoint: endPoint,
+    );
+    if (plan != null) return plan;
+  }
+  if (startRoute.vehicleType == 'tricycle' &&
+      destRoute.vehicleType == 'jeep') {
+    final plan = await calculateTrikeTrikeTrikeJeepJeepJourney(
       startPoint: startPoint,
       endPoint: endPoint,
     );
@@ -772,6 +780,100 @@ Future<JourneyPlan?> calculateTricycleJeepJeepTricycleJourney({
       }
     }
   }
+  return null;
+}
+
+
+Future<JourneyPlan?> calculateTrikeTrikeTrikeJeepJeepJourney({
+  required LatLng startPoint,
+  required LatLng endPoint,
+}) async {
+  final tricycleRoutes = routes.where((r) => r.vehicleType == 'tricycle').toList();
+  final jeepneyRoutes = routes.where((r) => r.vehicleType == 'jeep').toList();
+
+  for (final trike1 in tricycleRoutes) {
+    final startNearest = findNearestPointOnRoute(startPoint, trike1);
+    if (calculateDistance(startPoint, startNearest.point) > 500) continue;
+
+    for (final trike2 in tricycleRoutes) {
+      if (trike2 == trike1) continue;
+      final transfer1 = findTransferPoints(trike1, trike2);
+      if (transfer1.isEmpty) continue;
+
+      for (final trike3 in tricycleRoutes) {
+        if (trike3 == trike2 || trike3 == trike1) continue;
+        final transfer2 = findTransferPoints(trike2, trike3);
+        if (transfer2.isEmpty) continue;
+
+        for (final jeep1 in jeepneyRoutes) {
+          final transfer3 = findTransferPoints(trike3, jeep1);
+          if (transfer3.isEmpty) continue;
+
+          for (final jeep2 in jeepneyRoutes) {
+            if (jeep2 == jeep1) continue;
+            final transfer4 = findTransferPoints(jeep1, jeep2);
+            if (transfer4.isEmpty) continue;
+
+            final endNearest = findNearestPointOnRoute(endPoint, jeep2);
+            if (calculateDistance(endPoint, endNearest.point) > 500) continue;
+
+            final segment1 = createRouteSegment(
+              route: trike1,
+              startPoint: startNearest,
+              endPoint: findNearestPointOnRoute(transfer1.first.startTransfer.point, trike1),
+            );
+
+            final segment2 = createRouteSegment(
+              route: trike2,
+              startPoint: findNearestPointOnRoute(transfer1.first.endTransfer.point, trike2),
+              endPoint: findNearestPointOnRoute(transfer2.first.startTransfer.point, trike2),
+            );
+
+            final segment3 = createRouteSegment(
+              route: trike3,
+              startPoint: findNearestPointOnRoute(transfer2.first.endTransfer.point, trike3),
+              endPoint: findNearestPointOnRoute(transfer3.first.startTransfer.point, trike3),
+            );
+
+            final segment4 = createRouteSegment(
+              route: jeep1,
+              startPoint: findNearestPointOnRoute(transfer3.first.endTransfer.point, jeep1),
+              endPoint: findNearestPointOnRoute(transfer4.first.startTransfer.point, jeep1),
+            );
+
+            final segment5 = createRouteSegment(
+              route: jeep2,
+              startPoint: findNearestPointOnRoute(transfer4.first.endTransfer.point, jeep2),
+              endPoint: endNearest,
+            );
+
+            if (segment1 == null || segment2 == null || segment3 == null || segment4 == null || segment5 == null) continue;
+
+            final walkSegments = <List<LatLng>>[];
+            final walk1 = await getWalkingRoute(startPoint, segment1.boardingPoint);
+            final walk2 = await getWalkingRoute(segment1.alightingPoint, segment2.boardingPoint);
+            final walk3 = await getWalkingRoute(segment2.alightingPoint, segment3.boardingPoint);
+            final walk4 = await getWalkingRoute(segment3.alightingPoint, segment4.boardingPoint);
+            final walk5 = await getWalkingRoute(segment4.alightingPoint, segment5.boardingPoint);
+            final walk6 = await getWalkingRoute(segment5.alightingPoint, endPoint);
+
+            if (walk1 != null) walkSegments.add(walk1);
+            if (walk2 != null) walkSegments.add(walk2);
+            if (walk3 != null) walkSegments.add(walk3);
+            if (walk4 != null) walkSegments.add(walk4);
+            if (walk5 != null) walkSegments.add(walk5);
+            if (walk6 != null) walkSegments.add(walk6);
+
+            return JourneyPlan(
+              vehicleSegments: [segment1, segment2, segment3, segment4, segment5],
+              walkingSegments: walkSegments,
+            );
+          }
+        }
+      }
+    }
+  }
+
   return null;
 }
 

@@ -17,7 +17,7 @@ Future<void> loadGPX() async {
     'assets/gpx/P_ALABANG_TO_SUCAT_KANAN_SOUTHBOUND.gpx',
     'assets/gpx/P_ALABANG_TO_TUNASAN_SOUTHBOUND.gpx',
     'assets/gpx/P_TUNASAN_TO_ALABANG_NORTHBOUND.gpx',
-    //'assets/gpx/P_BAYAN_TO_MAIN_GATE_NORTHBOUND_SOUTHBOUND.gpx',
+    'assets/gpx/P_BAYAN_TO_MAIN_GATE_NORTHBOUND_SOUTHBOUND.gpx',
     'assets/gpx/P_BAYANAN2_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_BIAZON_ROAD_TO_MUNTINLUPA_LASPINAS_BOUNDARY_NORTHBOUND.gpx',
     //'assets/gpx/P_MUNISIPYO_TRICYCLE_TERMINAL.gpx',
@@ -31,9 +31,12 @@ Future<void> loadGPX() async {
     'assets/gpx/P_NOVO_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_PHASE3_TRICYCLE_TERMINAL.gpx',
     'assets/gpx/P_SOLDIERS_TRICYCLE_TERMINAL.gpx',
-    'assets/gpx/P_BAYAN_TO_MAIN_NORTHBOUND_SOUTHBOUND.gpx',
+    //'assets/gpx/P_BAYAN_TO_MAIN_NORTHBOUND_SOUTHBOUND.gpx',
     //'assets/gpx/P_POBLACION_SOUTHVILLE_3_SOUTHBOUND.gpx',
     //'assets/gpx/P_TYPEB_TRICYCLE_TERMINAL.gpx',
+    'assets/gpx/P_BAYAN_TRICYCLE_TERMINAL.gpx',
+    'assets/gpx/P_TYPEB2_TRICYCLE_TERMINAL.gpx',
+
   ];
 
   for (String file in gpxFiles) {
